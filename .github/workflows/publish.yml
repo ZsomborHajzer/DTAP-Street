@@ -29,9 +29,6 @@ jobs:
       - name: Create executable Jar File
         run: mvn clean compile assembly:single
 
-      - name: Run the created file
-        run: java -jar target/JabberPoint-1.0-SNAPSHOT-jar-with-dependencies.jar
-
       - name: Upload to gdrive
         uses: adityak74/google-drive-upload-git-action@main
         with:
