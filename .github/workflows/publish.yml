@@ -20,6 +20,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Test with Maven
+        run: mvn test --file pom.xml
+
+      - name: Clean with Maven
+        run: mvn clean --file pom.xml
+
       - name: Package the maven project
         run: mvn -B package --file pom.xml
 
