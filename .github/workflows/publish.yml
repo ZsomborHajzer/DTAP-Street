@@ -2,6 +2,7 @@
 name: Publish JAR file
 on:
   workflow_dispatch:
+    branches: ["Development"]
 
 jobs:
   my_job:
