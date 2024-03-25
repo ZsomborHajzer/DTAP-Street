@@ -1,5 +1,4 @@
 package com.ZsomborSebastian.JabberPoint;
-
 import javax.swing.*;
 
 public class JabberPoint
