@@ -2,8 +2,8 @@
 name: Publish code coverage
 on:
   push:
-    branches: [Presentation]
-  workflow_dispatch: {}
+    branches: ["Presentation"]
+  workflow_dispatch:
 
 jobs:
   my_job:
