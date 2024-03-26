@@ -1,6 +1,9 @@
-
+# .github/workflows/main.yml
 name: Publish code coverage
 on:
+  push:
+    branches:
+      - Presentation
   workflow_dispatch:
     branches:
       - Development
