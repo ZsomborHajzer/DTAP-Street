@@ -18,6 +18,9 @@ jobs:
       - name: Files in the project
         run: ls -R
 
+      - name: Print contents of BlackSubheadingStyleTest.java
+        run: cat ./src/test/java/com/ZsomborSebastian/JabberPoint/Styles/BlackSubheadingStyleTest.java
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
