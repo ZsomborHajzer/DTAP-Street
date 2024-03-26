@@ -36,5 +36,5 @@ jobs:
           credentials: ${{ secrets.credentials }}
           filename: "coverage-report.zip"
           folderId: ${{ secrets.folderId }}
-          name: "Java.jar" # optional string
+          name: "coverage-report.zip" # optional string
           overwrite: "true" # optional boolean
