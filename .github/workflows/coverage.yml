@@ -2,12 +2,8 @@
 name: Publish code coverage
 on:
   push:
-    branches:
-      - Presentation
-  workflow_dispatch:
-    branches:
-      - Development
-      - Presentation
+    branches: [Presentation]
+  workflow_dispatch: {}
 
 jobs:
   my_job:
@@ -23,6 +19,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
+      - name: Build with Maven
+        run: mvn package
 
       - name: Clean with Maven
         run: mvn clean verify
