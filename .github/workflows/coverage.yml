@@ -28,8 +28,14 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Run test 1
+        run: mvn test
+
       - name: Clean with Maven
         run: mvn clean verify
+
+      - name: Run test 2
+        run: mvn test
 
       - name: Zip code coverage report directory
         run: zip -r coverage-report.zip target/site
