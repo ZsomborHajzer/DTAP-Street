@@ -1,5 +1,5 @@
-# .github/workflows/main.yml
-name: Publish JAR file
+
+name: Publish code coverage
 on:
   workflow_dispatch:
     branches:
@@ -22,20 +22,16 @@ jobs:
           cache: maven
 
       - name: Clean with Maven
-        run: mvn clean --file pom.xml
+        run: mvn clean verify
 
-      - name: Package the maven project
-        run: mvn -B package --file pom.xml
+      - name: Zip code coverage report directory
+        run: zip -r coverage-report.zip target/site
 
-      - name: Create executable Jar File
-        run: mvn clean compile assembly:single
-
-      - name: Upload java executable to google drive
+      - name: Upload code coverage report to google drive
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.credentials }}
-          filename: "target/JabberPoint-1.0-SNAPSHOT-jar-with-dependencies.jar"
+          filename: "coverage-report.zip"
           folderId: ${{ secrets.folderId }}
           name: "Java.jar" # optional string
           overwrite: "true" # optional boolean
-
