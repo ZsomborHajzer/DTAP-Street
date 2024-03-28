@@ -10,12 +10,12 @@ import java.awt.*;
 public class SlideViewerComponent extends JComponent implements PresentationObserver
 {
     private Slide slide; // current slide
-    private Font labelFont = null; // font for labels
-    private Presentation presentation = null; // the presentation
-    private JFrame frame = null;
+    private final Font labelFont; // font for labels
+    private final Presentation presentation; // the presentation
+    private final JFrame frame;
 
     // UI related constants
-    private static final Color BGCOLOR = Color.white;
+    private static final Color BACKGROUNDCOLOR = Color.white;
     private static final Color COLOR = Color.black;
     private static final String FONTNAME = "Dialog";
     private static final int FONTSTYLE = Font.BOLD;
@@ -27,12 +27,36 @@ public class SlideViewerComponent extends JComponent implements PresentationObse
 
     public SlideViewerComponent(Presentation presentation, JFrame frame)
     {
-
         this.presentation = presentation;
         this.labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
         this.frame = frame;
-        setBackground(BGCOLOR);
+        setBackground(BACKGROUNDCOLOR);
         presentation.addObserver(this);
+    }
+
+    public Slide getSlide()
+    {
+        return slide;
+    }
+
+    public void setSlide(Slide slide)
+    {
+        this.slide = slide;
+    }
+
+    public Font getLabelFont()
+    {
+        return labelFont;
+    }
+
+    public Presentation getPresentation()
+    {
+        return presentation;
+    }
+
+    public JFrame getFrame()
+    {
+        return frame;
     }
 
     public Dimension getPreferredSize()
@@ -44,7 +68,7 @@ public class SlideViewerComponent extends JComponent implements PresentationObse
     // draw the slide
     public void paintComponent(Graphics graphics)
     {
-        graphics.setColor(BGCOLOR);
+        graphics.setColor(BACKGROUNDCOLOR);
         graphics.fillRect(0, 0, getSize().width, getSize().height);
         graphics.setFont(labelFont);
         graphics.setColor(COLOR);
@@ -53,7 +77,6 @@ public class SlideViewerComponent extends JComponent implements PresentationObse
         Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
         slide.draw(graphics, area, this);
     }
-
 
     @Override
     public void update()
@@ -65,19 +88,5 @@ public class SlideViewerComponent extends JComponent implements PresentationObse
             frame.setTitle(presentation.getPresentationTitle());
         }
     }
-
-    public void update(Presentation presentation, Slide slide)
-    {
-        if (slide == null)
-        {
-            repaint();
-            return;
-        }
-        this.presentation = presentation;
-        this.slide = slide;
-        repaint();
-        frame.setTitle(presentation.getPresentationTitle());
-    }
-
 }
 
