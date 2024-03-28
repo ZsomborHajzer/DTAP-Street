@@ -4,6 +4,10 @@ public class StylesFactory
 {
     public Style createStyle(StyleTypes styleType)
     {
+        if (styleType == null) {
+           throw new IllegalArgumentException("Null input arguments are not accepted");
+        }
+
         return switch (styleType)
         {
             case BLACK_SUBHEADING -> new BlackSubheadingStyle();
@@ -11,7 +15,7 @@ public class StylesFactory
             case BLACK_TEXT -> new BlackTextStyle();
             case BLUE_HEADING -> new BlueHeadingStyle();
             case RED_TITLE -> new RedTitleStyle();
-            default -> throw new IllegalArgumentException("Unsupported style type: " + styleType);
+            default -> throw new AssertionError("Unknown StyleTypes: " + styleType);
         };
     }
 
