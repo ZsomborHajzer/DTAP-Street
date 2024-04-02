@@ -49,7 +49,7 @@ public class TextItem extends SlideItem
         return attributedString;
     }
 
-    //Q Check with teachers if this needs to be broken apart or if it meets clean code requiremetns
+    //Q Check with teachers if this needs to be broken apart or if it meets clean code requirements
     private List<TextLayout> getLayouts(Graphics graphics, float scale)
     {
         List<TextLayout> layouts = new ArrayList<>();
@@ -73,29 +73,38 @@ public class TextItem extends SlideItem
     public Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale)
     {
         List<TextLayout> layouts = getLayouts(graphics, scale);
-        int xsize = 0;
-        int ysize = (int) (style.getFontSize() * scale);  //FIX scale is of type "float" so it typecasts to int
+        int xSize = 0;
+        int ySize = (int) (style.getFontSize() * scale);  //FIX scale is of type "float" so it typecasts to int
 
         for (TextLayout layout : layouts)
         {
             Rectangle2D bounds = layout.getBounds();
-            if (bounds.getWidth() > xsize)
+            if (bounds.getWidth() > xSize)
             {
-                xsize = (int) bounds.getWidth(); //FIX typecast
+                xSize = (int) bounds.getWidth(); //FIX typecast
             }
             if (bounds.getHeight() > 0)
             {
-                ysize += (int) bounds.getHeight(); //FIX typecast
+                ySize += (int) bounds.getHeight(); //FIX typecast
             }
-            ysize += (int) (layout.getLeading() + layout.getDescent()); //FIX typecast
+            ySize += (int) (layout.getLeading() + layout.getDescent()); //FIX typecast
         }
-        return new Rectangle((int) (style.getIndent() * scale), 0, xsize, ysize); //FIX typecast
+        return new Rectangle((int) (style.getIndent() * scale), 0, xSize, ySize); //FIX typecast
     }
 
     @Override
-    public void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer)
+    public void draw(int x, int y, float scale, Graphics graphics, ImageObserver observer)
     {
-
+        List<TextLayout> layouts = getLayouts(graphics, scale);
+        Point pen = new Point(x + (int) (style.getIndent() * scale), y + (int) (style.getFontSize() * scale)); //FIX typecast
+        Graphics2D g2d = (Graphics2D) graphics; //FIX typecast
+        g2d.setColor(style.getColor());
+        for (TextLayout layout : layouts)
+        {
+            pen.y += (int) layout.getAscent(); //FIX typecast
+            layout.draw(g2d, pen.x, pen.y);
+            pen.y += (int) layout.getDescent(); //FIX typecast
+        }
     }
 
 }
