@@ -11,32 +11,14 @@ public class BlueHeadingStyle extends Style
     }
 
     @Override
-    public String getFontName()
+    public Font getFont(float scale)
     {
-        return this.fontName;
+        return font.deriveFont(fontSize * scale);
     }
 
     @Override
-    public int getIndent()
+    public Font generateFont(int fontSize)
     {
-        return this.indent;
-    }
-
-    @Override
-    public Color getColor()
-    {
-        return this.color;
-    }
-
-    @Override
-    public int getFontSize()
-    {
-        return this.fontSize;
-    }
-
-    @Override
-    public int getVerticalMargin()
-    {
-        return this.verticalMargin;
+        return new Font(fontName, Font.BOLD, fontSize);
     }
 }

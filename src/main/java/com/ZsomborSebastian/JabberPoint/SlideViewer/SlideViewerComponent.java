@@ -75,7 +75,7 @@ public class SlideViewerComponent extends JComponent implements PresentationObse
         graphics.drawString("Slide " + (1 + presentation.getSlideNumber()) + " of " +
                 presentation.getNumberOfSlides(), XPOS, YPOS);
         Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
-        slide.draw(graphics, area, this);
+        slide.drawSlide(graphics, area, this);
     }
 
     @Override
