@@ -92,6 +92,7 @@ public class TextItem extends SlideItem
         return new Rectangle((int) (style.getIndent() * scale), 0, xSize, ySize); //FIX typecast
     }
 
+
     @Override
     public void draw(int x, int y, float scale, Graphics graphics, ImageObserver observer)
     {

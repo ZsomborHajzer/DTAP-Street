@@ -21,7 +21,7 @@ public class BitMapItem extends SlideItem
         super(style);
         this.imageName = imageName;
         // change image import method to work with packaged jar files
-        InputStream imageStream = getClass().getClassLoader().getResourceAsStream(imageName); //FIX create image folder in resources and add it to the path here
+        InputStream imageStream = getClass().getClassLoader().getResourceAsStream("images/" + imageName); //FIX create image folder in resources and add it to the path here
         if (imageStream == null)
         {
             throw new IOException("Image file not found in resources: " + imageName);

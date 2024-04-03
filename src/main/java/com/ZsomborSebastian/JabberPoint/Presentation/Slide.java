@@ -2,6 +2,7 @@ package com.ZsomborSebastian.JabberPoint.Presentation;
 
 import com.ZsomborSebastian.JabberPoint.Presentation.SlideItem.SlideItem;
 import com.ZsomborSebastian.JabberPoint.Presentation.SlideItem.TextItem;
+import com.ZsomborSebastian.JabberPoint.Styles.RedTitleStyle;
 import com.ZsomborSebastian.JabberPoint.Styles.Style;
 
 import java.awt.*;
@@ -12,7 +13,7 @@ public class Slide
 {
     public final static int WIDTH = 1200;
     public final static int HEIGHT = 800;
-    private String title; // title is saved separately
+    private String slideTitle; // title is saved separately
     private Vector<SlideItem> items; // slide items are saved in a Vector
 
 
@@ -31,12 +32,17 @@ public class Slide
         this.items = items;
     }
 
-    public String getTitle(){
-        return this.title;
+    public String getSlideTitle(){
+        return this.slideTitle;
     }
 
-    public void setTitle(String title){
-        this.title = title;
+    public void setSlideTitle(String slideTitle){
+
+        if (slideTitle.isEmpty()) {
+            throw new IllegalArgumentException("SlideTitle should not be empty");
+        }
+
+        this.slideTitle = slideTitle;
     }
 
     // Add a slide item
@@ -69,21 +75,27 @@ public class Slide
 
 
     // draw the slide
-    public void drawSlide(Graphics g, Rectangle area, ImageObserver view)
+    public void drawSlide(Graphics graphics, Rectangle area, ImageObserver view)
     {
+        System.out.println("Current Slide " + getSlideTitle());
         float scale = getScale(area);
+
         int y = area.y;
-        // Title is handled separately
-        SlideItem slideItem = new TextItem(0, getTitle());
-        Style style = Style.getStyle(slideItem.getLevel());
-        slideItem.draw(area.x, y, scale, g, style, view);
-        y += slideItem.getBoundingBox(g, view, scale, style).height;
-        for (int number = 0; number < getNumberOfItems(); number++)
+
+        SlideItem slideItem = new TextItem(getSlideTitle(), new RedTitleStyle());  //rename this to presentation title
+
+        slideItem.draw(area.x, y, scale, graphics, view);
+
+        y += slideItem.getBoundingBox(graphics, view, scale).height;
+
+        for (int i = 0; i < getNumberOfItems(); i++)
         {
-            slideItem = (SlideItem) getAllSlideItems().elementAt(number);
-            style = Style.getStyle(slideItem.getLevel());
-            slideItem.draw(area.x, y, scale, g, style, view);
-            y += slideItem.getBoundingBox(g, view, scale, style).height;
+            slideItem = getAllSlideItems().elementAt(i);
+            System.out.println(slideItem);
+
+            slideItem.draw(area.x, y, scale, graphics, view);
+
+            y += slideItem.getBoundingBox(graphics, view, scale).height;
         }
     }
 

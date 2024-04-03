@@ -21,7 +21,6 @@ public class SlideViewerComponent extends JComponent implements PresentationObse
     private static final int FONTSTYLE = Font.BOLD;
     private static final int FONTHEIGHT = 10;
 
-    // Positioning constants
     private static final int XPOS = 1100;
     private static final int YPOS = 20;
 
@@ -32,6 +31,7 @@ public class SlideViewerComponent extends JComponent implements PresentationObse
         this.frame = frame;
         setBackground(BACKGROUNDCOLOR);
         presentation.addObserver(this);
+        presentation.changeSlide(0);
     }
 
     public Slide getSlide()
@@ -74,8 +74,11 @@ public class SlideViewerComponent extends JComponent implements PresentationObse
         graphics.setColor(COLOR);
         graphics.drawString("Slide " + (1 + presentation.getSlideNumber()) + " of " +
                 presentation.getNumberOfSlides(), XPOS, YPOS);
-        Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
-        slide.drawSlide(graphics, area, this);
+        if (this.slide != null)
+        {
+            Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
+            slide.drawSlide(graphics, area, this);
+        }
     }
 
     @Override
