@@ -131,8 +131,6 @@ public class Presentation
         return slides.size();
     }
 
-    // Give the current slide
-
 
     public void addObserver(PresentationObserver presentationObserver)
     {
