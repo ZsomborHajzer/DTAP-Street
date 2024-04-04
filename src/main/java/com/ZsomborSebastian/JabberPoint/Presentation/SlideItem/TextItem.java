@@ -107,5 +107,4 @@ public class TextItem extends SlideItem
             pen.y += (int) layout.getDescent(); //FIX typecast
         }
     }
-
 }
