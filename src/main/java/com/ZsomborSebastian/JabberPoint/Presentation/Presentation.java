@@ -85,7 +85,8 @@ public class Presentation
     {
         if (currentSlideNumber > 0)
         {
-            changeSlide(currentSlideNumber - 1);
+            this.currentSlideNumber--;
+            changeSlide(currentSlideNumber);
         }
     }
 
@@ -94,7 +95,8 @@ public class Presentation
     {
         if (currentSlideNumber < getNumberOfSlides())
         {
-            changeSlide(currentSlideNumber + 1);
+            this.currentSlideNumber++;
+            changeSlide(this.currentSlideNumber);
         }
     }
 
