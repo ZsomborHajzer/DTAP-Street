@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class BlackSubtextStyleTest
 {
@@ -49,5 +49,50 @@ public class BlackSubtextStyleTest
     void getVerticalMargin()
     {
         assertEquals(10, blackSubtextStyle.getVerticalMargin(), "Vertical margin should be 10.");
+    }
+
+    @Test
+    void getFont_ScaleEqualsOne_BaseFontValues()
+    {
+        Font font = blackSubtextStyle.getFont(1);
+        assertEquals(30, font.getSize());
+    }
+
+    @Test
+    void getFont_ScaleEqualsTwo_DoubleFontSize()
+    {
+        Font font = blackSubtextStyle.getFont(2);
+        assertEquals(60, font.getSize());
+    }
+
+    @Test
+    void getFont_ScaleEqualsZero_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> blackSubtextStyle.getFont(0));
+    }
+
+    @Test
+    void getFont_NegativeNumberScale_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> blackSubtextStyle.getFont(-4));
+    }
+
+    @Test
+    void generateFont_FontSizeIsPositive_CorrectOutput()
+    {
+        Font font = blackSubtextStyle.generateFont(10);
+        assertEquals(10, font.getSize());
+    }
+
+    @Test
+    void generateFont_FontSizeIs0_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> blackSubtextStyle.generateFont(0));
+    }
+
+    @Test
+    void generateFont_FontSizeIsNegative_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> blackSubtextStyle.generateFont(-5));
     }
 }

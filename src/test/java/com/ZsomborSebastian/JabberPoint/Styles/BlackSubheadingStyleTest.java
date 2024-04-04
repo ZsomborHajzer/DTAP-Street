@@ -72,4 +72,23 @@ class BlackSubheadingStyleTest
     {
         assertThrows(IllegalArgumentException.class, () -> blackSubheadingStyle.getFont(-4));
     }
+
+    @Test
+    void generateFont_FontSizeIsPositive_CorrectOutput()
+    {
+        Font font = blackSubheadingStyle.generateFont(10);
+        assertEquals(10, font.getSize());
+    }
+
+    @Test
+    void generateFont_FontSizeIs0_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> blackSubheadingStyle.generateFont(0));
+    }
+
+    @Test
+    void generateFont_FontSizeIsNegative_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> blackSubheadingStyle.generateFont(-5));
+    }
 }

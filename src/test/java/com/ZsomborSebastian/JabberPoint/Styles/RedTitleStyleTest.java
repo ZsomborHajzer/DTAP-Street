@@ -40,4 +40,49 @@ class RedTitleStyleTest
     void getVerticalMargin() {
         assertEquals(20, redTitleStyle.getVerticalMargin(), "Vertical margin should be 20.");
     }
+
+    @Test
+    void getFont_ScaleEqualsOne_BaseFontValues()
+    {
+        Font font = redTitleStyle.getFont(1);
+        assertEquals(48, font.getSize());
+    }
+
+    @Test
+    void getFont_ScaleEqualsTwo_DoubleFontSize()
+    {
+        Font font = redTitleStyle.getFont(2);
+        assertEquals(96, font.getSize());
+    }
+
+    @Test
+    void getFont_ScaleEqualsZero_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> redTitleStyle.getFont(0));
+    }
+
+    @Test
+    void getFont_NegativeNumberScale_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> redTitleStyle.getFont(-4));
+    }
+
+    @Test
+    void generateFont_FontSizeIsPositive_CorrectOutput()
+    {
+        Font font = redTitleStyle.generateFont(10);
+        assertEquals(10, font.getSize());
+    }
+
+    @Test
+    void generateFont_FontSizeIs0_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> redTitleStyle.generateFont(0));
+    }
+
+    @Test
+    void generateFont_FontSizeIsNegative_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> redTitleStyle.generateFont(-5));
+    }
 }
