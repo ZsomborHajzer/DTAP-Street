@@ -10,6 +10,8 @@ public abstract class Style
     protected int fontSize;
     protected int verticalMargin;
 
+    protected Font font;
+
     // Constructor
     public Style(String fontName, int indent, Color color, int fontSize, int verticalMargin) {
         this.fontName = fontName;
@@ -17,17 +19,41 @@ public abstract class Style
         this.color = color;
         this.fontSize = fontSize;
         this.verticalMargin = verticalMargin;
+        this.font = generateFont(fontSize);
     }
 
     // Getter methods
-    public abstract String getFontName();
 
-    public abstract int getIndent();
+    public String getFontName()
+    {
+        return this.fontName;
+    }
 
-    public abstract Color getColor();
 
-    public abstract int getFontSize();
+    public int getIndent()
+    {
+        return this.indent;
+    }
 
-    public abstract int getVerticalMargin();
 
+    public Color getColor()
+    {
+        return this.color;
+    }
+
+
+    public int getFontSize()
+    {
+        return this.fontSize;
+    }
+
+
+    public int getVerticalMargin()
+    {
+        return this.verticalMargin;
+    }
+
+    public abstract Font getFont(float scale);
+
+    public abstract Font generateFont(int fontSize);
 }

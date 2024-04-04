@@ -1,26 +1,47 @@
 package com.ZsomborSebastian.JabberPoint;
-import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
-import com.ZsomborSebastian.JabberPoint.SlideViewer.SlideViewerFrame;
-import com.ZsomborSebastian.JabberPoint.Styles.BlackTextStyle;
-import com.ZsomborSebastian.JabberPoint.Styles.BlueHeadingStyle;
-import com.ZsomborSebastian.JabberPoint.Styles.Style;
-import com.ZsomborSebastian.JabberPoint.Styles.StylesFactory;
 
-import javax.swing.*;
+import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
+import com.ZsomborSebastian.JabberPoint.Presentation.Slide;
+import com.ZsomborSebastian.JabberPoint.Presentation.SlideBuilder;
+import com.ZsomborSebastian.JabberPoint.Presentation.SlideItem.BitMapItem;
+import com.ZsomborSebastian.JabberPoint.Presentation.SlideItem.TextItem;
+import com.ZsomborSebastian.JabberPoint.SlideViewer.SlideViewerFrame;
+import com.ZsomborSebastian.JabberPoint.Styles.*;
+
+import java.io.IOException;
 
 public class JabberPoint
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         StylesFactory factory = new StylesFactory();
-        Style blackText = new BlackTextStyle();
-        Style blueText = new BlueHeadingStyle();
-        System.out.println(blackText.getFontName() + blackText.getColor());
-        System.out.println(blueText.getFontName() + blueText.getColor());
+        Style Red = factory.createStyle(StyleTypes.RED_TITLE);
+        Style Black = factory.createStyle(StyleTypes.BLACK_SUBTEXT);
+        Style Black2 = factory.createStyle(StyleTypes.BLACK_SUBHEADING);
+        Style Blue = factory.createStyle(StyleTypes.BLUE_HEADING);
+        SlideBuilder builder = new SlideBuilder();
+
+
+       Slide slide = builder.addBitMapItem(Black, "image2.png")
+                .setSlideTitle("Builder Slide")
+                .addTextItem("This was built using a builder", Black)
+                .addTextItem("another Text item", Red)
+                        .build();
+
+       Slide slide2 = builder.setSlideTitle("Second Slide")
+                .addTextItem("this is the second slide",Black)
+                .addTextItem("Some blue as well", Blue)
+                        .build();
+
+
+        System.out.println("The slide is here and is not null" + slide);
 
 
         Presentation presentation = new Presentation();
+        presentation.appendSlide(slide);
+        presentation.appendSlide(slide2);
         new SlideViewerFrame("test", presentation);
+
 
     }
 }
