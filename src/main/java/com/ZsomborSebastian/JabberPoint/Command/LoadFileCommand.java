@@ -2,7 +2,7 @@ package com.ZsomborSebastian.JabberPoint.Command;
 
 import com.ZsomborSebastian.JabberPoint.Accessor.XMLAccessor;
 
-public class LoadFileCommand extends XMLAcccessorCommand{
+public class LoadFileCommand extends AbstractFileCommand {
 
     public LoadFileCommand(XMLAccessor xmlAccessor) {
         super(xmlAccessor);
@@ -10,6 +10,7 @@ public class LoadFileCommand extends XMLAcccessorCommand{
 
     @Override
     public void execute() {
-
+        String filename = null;
+        XMLAccessor.loadFile(presentation, filename);
     }
 }

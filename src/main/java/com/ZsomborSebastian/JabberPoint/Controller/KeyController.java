@@ -1,7 +1,6 @@
 package com.ZsomborSebastian.JabberPoint.Controller;
 
-import com.ZsomborSebastian.JabberPoint.Command.Command;
-import com.ZsomborSebastian.JabberPoint.Command.PresentationCommand;
+import com.ZsomborSebastian.JabberPoint.Command.AbstractSlideCommand;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
 import java.awt.event.KeyEvent;
@@ -11,7 +10,7 @@ import java.util.Map;
 
 public class KeyController extends KeyAdapter {
     private Presentation presentation;
-    private Map<Integer, PresentationCommand> commandMappings;
+    private Map<Integer, AbstractSlideCommand> commandMappings;
 
     public KeyController(Presentation presentation) {
         this.presentation = presentation;
@@ -26,26 +25,26 @@ public class KeyController extends KeyAdapter {
         this.presentation = presentation;
     }
 
-    public Map<Integer, PresentationCommand> getCommandMappings() {
+    public Map<Integer, AbstractSlideCommand> getCommandMappings() {
         return commandMappings;
     }
 
-    public void setCommandMappings(Map<Integer, PresentationCommand> commandMappings) {
+    public void setCommandMappings(Map<Integer, AbstractSlideCommand> commandMappings) {
         this.commandMappings = commandMappings;
     }
 
-    public void registerCommand(int keyCode, PresentationCommand command) {
+    public void registerSlideCommand(int keyCode, AbstractSlideCommand command) {
         commandMappings.put(keyCode, command);
     }
 
-    public PresentationCommand getCommandForKey(int keyCode)
+    public AbstractSlideCommand getCommandForKey(int keyCode)
     {
         return commandMappings.get(keyCode);
     }
 
     public void keyPressed(KeyEvent keyEvent) {
         int keyCode = keyEvent.getKeyCode();
-        PresentationCommand command = commandMappings.get(keyCode);
+        AbstractSlideCommand command = commandMappings.get(keyCode);
         if (command != null) {
             command.execute();
         }

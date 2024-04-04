@@ -1,12 +1,12 @@
-// PresentationCommand.java
+// AbstractSlideCommand.java
 package com.ZsomborSebastian.JabberPoint.Command;
 
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
-public abstract class PresentationCommand {
+public abstract class AbstractSlideCommand implements Command {
     protected Presentation presentation;
 
-    public PresentationCommand(Presentation presentation) {
+    public AbstractSlideCommand() {
         this.presentation = presentation;
     }
 

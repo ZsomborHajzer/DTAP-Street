@@ -2,11 +2,9 @@
 name: Publish JAR file
 on:
   workflow_dispatch:
-<<<<<<< HEAD
     branches:
       - Development
-=======
->>>>>>> parent of 7aec0c4 (update jar testing)
+
 
 jobs:
   my_job:

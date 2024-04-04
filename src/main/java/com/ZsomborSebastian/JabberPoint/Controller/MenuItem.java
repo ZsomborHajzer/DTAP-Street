@@ -1,5 +1,7 @@
 package com.ZsomborSebastian.JabberPoint.Controller;
 
+import java.awt.event.ActionListener;
+
 public class MenuItem {
 
     private String label;
@@ -16,4 +18,6 @@ public class MenuItem {
         this.label = label;
     }
 
+    public void addActionListener(ActionListener actionListener) {
+    }
 }

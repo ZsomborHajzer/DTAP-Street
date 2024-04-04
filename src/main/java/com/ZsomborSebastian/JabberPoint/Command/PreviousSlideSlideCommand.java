@@ -1,12 +1,12 @@
-// PreviousSlideCommand.java
+// PreviousSlideSlideCommand.java
 package com.ZsomborSebastian.JabberPoint.Command;
 
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
-public class PreviousSlideCommand extends PresentationCommand {
+public class PreviousSlideSlideCommand extends AbstractSlideCommand {
 
-    public PreviousSlideCommand(Presentation presentation) {
-        super(presentation);
+    public PreviousSlideSlideCommand(Presentation presentation) {
+        super();
     }
 
     @Override

@@ -57,4 +57,12 @@ public class Presentation {
         // Logic to display the current slide goes here
     }
 
+    public void clear() {
+    }
+
+    public void setSlideNumber(int i) {
+    }
+
+    public void exit(int i) {
+    }
 }

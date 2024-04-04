@@ -1,6 +1,9 @@
 package com.ZsomborSebastian.JabberPoint.Controller;
 
-import com.ZsomborSebastian.JabberPoint.Command.*;
+import com.ZsomborSebastian.JabberPoint.Command.AbstractSlideCommand;
+import com.ZsomborSebastian.JabberPoint.Command.JumpToSlideCommand;
+import com.ZsomborSebastian.JabberPoint.Command.NextSlideSlideCommand;
+import com.ZsomborSebastian.JabberPoint.Command.PreviousSlideSlideCommand;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class KeyControllerTest {
 
     private Presentation testPresentation;
-    private NextSlideCommand testNextSlideCommand;
-    private PreviousSlideCommand testPreviousSlideCommand;
+    private NextSlideSlideCommand testNextSlideCommand;
+    private PreviousSlideSlideCommand testPreviousSlideCommand;
     private JumpToSlideCommand testJumpToSlideCommand;
     private KeyController testKeyController;
 
@@ -23,20 +26,20 @@ class KeyControllerTest {
     {
         testPresentation = new Presentation();
         testKeyController = new KeyController(testPresentation);
-        testNextSlideCommand = new NextSlideCommand(testPresentation);
-        testPreviousSlideCommand = new PreviousSlideCommand(testPresentation);
+        testNextSlideCommand = new NextSlideSlideCommand(testPresentation);
+        testPreviousSlideCommand = new PreviousSlideSlideCommand(testPresentation);
         testJumpToSlideCommand = new JumpToSlideCommand(testPresentation);
 
-        testKeyController.registerCommand(KeyEvent.VK_RIGHT, testNextSlideCommand);
-        testKeyController.registerCommand(KeyEvent.VK_LEFT, testPreviousSlideCommand);
-        testKeyController.registerCommand(KeyEvent.VK_UP, testJumpToSlideCommand);
+        testKeyController.registerSlideCommand(KeyEvent.VK_RIGHT, testNextSlideCommand);
+        testKeyController.registerSlideCommand(KeyEvent.VK_LEFT, testPreviousSlideCommand);
+        testKeyController.registerSlideCommand(KeyEvent.VK_UP, testJumpToSlideCommand);
     }
 
     @Test
     public void getCommandForKey_rightArrowKeyToNextSlideCommand_GetRightArrowKey_expectSuccess()
     {
 
-        PresentationCommand registeredCommand = testKeyController.getCommandForKey(KeyEvent.VK_RIGHT);
+        AbstractSlideCommand registeredCommand = testKeyController.getCommandForKey(KeyEvent.VK_RIGHT);
 
         assertNotNull(registeredCommand);
         assertEquals(testNextSlideCommand, registeredCommand);
@@ -45,16 +48,16 @@ class KeyControllerTest {
     @Test
     public void getCommandForKey_getUnassignedArrowKey_expectNull() {
 
-        PresentationCommand registeredCommand = testKeyController.getCommandForKey(KeyEvent.VK_DOWN);
+        AbstractSlideCommand registeredCommand = testKeyController.getCommandForKey(KeyEvent.VK_DOWN);
 
         assertNull(registeredCommand);
     }
 
     @Test
     public void keyPressed_keyPressedRightArrow_commandExecutes() {
-        NextSlideCommand mockNextSlideCommand = mock(NextSlideCommand.class);
+        NextSlideSlideCommand mockNextSlideCommand = mock(NextSlideSlideCommand.class);
 
-        testKeyController.registerCommand(KeyEvent.VK_RIGHT, mockNextSlideCommand);
+        testKeyController.registerSlideCommand(KeyEvent.VK_RIGHT, mockNextSlideCommand);
 
         // Create a KeyEvent object representing a key press event for the right arrow key
         KeyEvent mockKeyEvent = mock(KeyEvent.class);
@@ -67,8 +70,8 @@ class KeyControllerTest {
 
     @Test
     public void keyPressed_keyPressedUnmappedKey_noCommandExecutes() {
-        NextSlideCommand testNextSlideCommand = mock(NextSlideCommand.class);
-        PreviousSlideCommand testPreviousSlideCommand = mock(PreviousSlideCommand.class);
+        NextSlideSlideCommand testNextSlideCommand = mock(NextSlideSlideCommand.class);
+        PreviousSlideSlideCommand testPreviousSlideCommand = mock(PreviousSlideSlideCommand.class);
         JumpToSlideCommand testJumpToSlideCommand = mock(JumpToSlideCommand.class);
 
         KeyEvent mockKeyEvent = mock(KeyEvent.class);

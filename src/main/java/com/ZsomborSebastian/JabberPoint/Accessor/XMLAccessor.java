@@ -1,16 +1,19 @@
 package com.ZsomborSebastian.JabberPoint.Accessor;
 
+import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
+
 public class XMLAccessor
 {
 
     public XMLAccessor() {
     }
 
-    public void saveToFile(){
+
+    public static void saveFile(Presentation presentation, Object filename){
 
     }
 
-    public void loadFromFile(){
+    public static void loadFile(Presentation presentation, String filename){
 
     }
 }
