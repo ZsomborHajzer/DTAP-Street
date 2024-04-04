@@ -4,7 +4,11 @@ on:
   workflow_dispatch:
     branches:
       - Development
+<<<<<<< HEAD
 
+=======
+      - Presentation
+>>>>>>> Development
 
 jobs:
   my_job:
@@ -30,7 +34,7 @@ jobs:
       - name: Create executable Jar File
         run: mvn clean compile assembly:single
 
-      - name: Upload to gdrive
+      - name: Upload java executable to google drive
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.credentials }}
@@ -38,3 +42,4 @@ jobs:
           folderId: ${{ secrets.folderId }}
           name: "Java.jar" # optional string
           overwrite: "true" # optional boolean
+

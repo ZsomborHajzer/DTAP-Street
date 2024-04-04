@@ -1,24 +1,48 @@
 package com.ZsomborSebastian.JabberPoint;
-import javax.swing.*;
+
+import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
+import com.ZsomborSebastian.JabberPoint.Presentation.Slide;
+import com.ZsomborSebastian.JabberPoint.Presentation.SlideBuilder;
+import com.ZsomborSebastian.JabberPoint.Presentation.SlideItem.BitMapItem;
+import com.ZsomborSebastian.JabberPoint.Presentation.SlideItem.TextItem;
+import com.ZsomborSebastian.JabberPoint.SlideViewer.SlideViewerFrame;
+import com.ZsomborSebastian.JabberPoint.Styles.*;
+
+import java.io.IOException;
 
 public class JabberPoint
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
-        JFrame frame = new JFrame("Simple GUI Example");
-        JLabel label = new JLabel("Hello, World!");
-        JButton button = new JButton("Click Me");
+        StylesFactory factory = new StylesFactory();
+        Style Red = factory.createStyle(StyleTypes.RED_TITLE);
+        Style Black = factory.createStyle(StyleTypes.BLACK_SUBTEXT);
+        Style Black2 = factory.createStyle(StyleTypes.BLACK_SUBHEADING);
+        Style Blue = factory.createStyle(StyleTypes.BLUE_HEADING);
+        SlideBuilder builder = new SlideBuilder();
 
-        button.addActionListener(e -> label.setText("Button Clicked!"));
 
-        JPanel panel = new JPanel();
-        panel.add(label);
-        panel.add(button);
+       Slide slide = builder.addBitMapItem(Black, "image2.png")
+                .setSlideTitle("Builder Slide")
+                .addTextItem("This was built using a builder", Black)
+                .addTextItem("another Text item", Red)
+                        .build();
 
-        frame.add(panel);
-        frame.setSize(300, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+       Slide slide2 = builder.setSlideTitle("Second Slide")
+                .addTextItem("this is the second slide",Black)
+                .addTextItem("Some blue as well", Blue)
+                        .build();
+
+
+        System.out.println("The slide is here and is not null" + slide);
+
+
+        Presentation presentation = new Presentation();
+        presentation.appendSlide(slide);
+        presentation.appendSlide(slide2);
+        new SlideViewerFrame("test", presentation);
+
+
     }
 }
 
