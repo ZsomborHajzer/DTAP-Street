@@ -18,6 +18,7 @@ import java.util.List;
 public class TextItem extends SlideItem
 {
     private String inputText;
+    private AttributedString attributedString;
 
     private static final String EMPTYTEXT = "No Text Given"; //Q IS this needed or what
 
@@ -41,70 +42,116 @@ public class TextItem extends SlideItem
         this.inputText = inputText;
     }
 
-
-    public AttributedString getAttributedString(float scale) //FIX Why is scale float?
+    public AttributedString getAttributedString(float scale)
     {
-        AttributedString attributedString = new AttributedString(getInputText());
-        attributedString.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, inputText.length());
+        AttributedString attributedString = createAttributedString();
+        applyAttributes(attributedString, scale);
         return attributedString;
     }
 
-    //Q Check with teachers if this needs to be broken apart or if it meets clean code requirements
+    public AttributedString createAttributedString()
+    {
+        return new AttributedString(getInputText());
+    }
+
+    public void applyAttributes(AttributedString attributedString, float scale)
+    {
+        attributedString.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, getInputText().length());
+    }
+
     private List<TextLayout> getLayouts(Graphics graphics, float scale)
     {
         List<TextLayout> layouts = new ArrayList<>();
         AttributedString attributedString = getAttributedString(scale);
-        Graphics2D g2d = (Graphics2D) graphics; //FIX Why is graphics being casted to Graphics2d here
-        FontRenderContext frc = g2d.getFontRenderContext();
-        LineBreakMeasurer measurer = new LineBreakMeasurer(attributedString.getIterator(), frc);
-
-        float wrappingWidth = (Slide.WIDTH - this.style.getIndent()) * scale;
+        Graphics2D g2d = (Graphics2D) graphics;
+        FontRenderContext fontRenderContext = g2d.getFontRenderContext();
+        LineBreakMeasurer measurer = createLineBreakMeasurer(attributedString, fontRenderContext);
+        float wrappingWidth = wrappingWidthCalculator(scale);
 
         while (measurer.getPosition() < getInputText().length())
         {
-            TextLayout layout = measurer.nextLayout(wrappingWidth); //Q float required input for nextLayout
+            TextLayout layout = getNextLayout(measurer, wrappingWidth);
             layouts.add(layout);
         }
 
         return layouts;
     }
 
+    public LineBreakMeasurer createLineBreakMeasurer(AttributedString attributedString, FontRenderContext fontRenderContext)
+    {
+        return new LineBreakMeasurer(attributedString.getIterator(), fontRenderContext);
+    }
+
+    public float wrappingWidthCalculator(float scale)
+    {
+        return ((Slide.WIDTH - this.style.getIndent()) * scale);
+    }
+
+    private TextLayout getNextLayout(LineBreakMeasurer measurer, float wrappingWidth)
+    {
+        return measurer.nextLayout(wrappingWidth);
+    }
+
     @Override
     public Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale)
     {
         List<TextLayout> layouts = getLayouts(graphics, scale);
-        int xSize = 0;
-        int ySize = (int) (style.getFontSize() * scale);  //FIX scale is of type "float" so it typecasts to int
+        int xSize = calculateMaxWidth(layouts);
+        int ySize = calculateTotalHeight(layouts, scale);
+        return new Rectangle(floatToInt(style.getIndent() * scale), 0, xSize, ySize);
+    }
 
+    private int calculateMaxWidth(List<TextLayout> layouts)
+    {
+        int maxWidth = 0;
         for (TextLayout layout : layouts)
         {
             Rectangle2D bounds = layout.getBounds();
-            if (bounds.getWidth() > xSize)
+            if (bounds.getWidth() > maxWidth)
             {
-                xSize = (int) bounds.getWidth(); //FIX typecast
+                maxWidth = doubleToInt(bounds.getWidth());
             }
-            if (bounds.getHeight() > 0)
-            {
-                ySize += (int) bounds.getHeight(); //FIX typecast
-            }
-            ySize += (int) (layout.getLeading() + layout.getDescent()); //FIX typecast
         }
-        return new Rectangle((int) (style.getIndent() * scale), 0, xSize, ySize); //FIX typecast
+        return maxWidth;
     }
 
+    private int calculateTotalHeight(List<TextLayout> layouts, float scale)
+    {
+        int totalHeight = floatToInt(style.getFontSize() * scale);
+        for (TextLayout layout : layouts)
+        {
+            Rectangle2D bounds = layout.getBounds();
+            if (bounds.getHeight() > 0)
+            {
+                totalHeight += doubleToInt(bounds.getHeight());
+            }
+            totalHeight += floatToInt(layout.getLeading() + layout.getDescent());
+        }
+        return totalHeight;
+    }
 
     @Override
     public void draw(int x, int y, float scale, Graphics graphics, ImageObserver observer)
     {
         List<TextLayout> layouts = getLayouts(graphics, scale);
-        Point pen = new Point(x + (int) (style.getIndent() * scale), y + (int) (style.getFontSize() * scale)); //FIX typecast
-        Graphics2D g2d = (Graphics2D) graphics; //FIX typecast
+        Point pen = createNewPoint(x, y, scale);
+        Graphics2D g2d = (Graphics2D) graphics;
         g2d.setColor(style.getColor());
+        drawText(pen, g2d, layouts);
+
+    }
+
+    public Point createNewPoint(int x, int y, float scale)
+    {
+        return new Point(x + floatToInt(style.getIndent() * scale), y + floatToInt(style.getFontSize() * scale));
+    }
+
+    public void drawText(Point pen, Graphics2D g2d, List<TextLayout> layouts) {
         for (TextLayout layout : layouts)
         {
-            pen.y += (int) layout.getAscent(); //FIX typecast
+            pen.y += floatToInt(layout.getAscent());
             layout.draw(g2d, pen.x, pen.y);
-            pen.y += (int) layout.getDescent(); //FIX typecast
+            pen.y += floatToInt(layout.getDescent());
         }
     }
 }

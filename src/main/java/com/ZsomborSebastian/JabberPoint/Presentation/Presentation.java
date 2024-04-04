@@ -103,18 +103,15 @@ public class Presentation
     // Delete the presentation to be ready for the next one.
     void resetPresentation()
     {
-        slides = new ArrayList<Slide>();
+        slides = new ArrayList<>();
         changeSlide(0);
     }
 
-    // Add a slide to the presentation
     public void appendSlide(Slide slide)
     {
         this.slides.add(slide);
     }
 
-
-    // Get a slide with a certain slidenumber
     public Slide getSlideObject(int number)
     {
         if (number < 0 || number >= getNumberOfSlides())

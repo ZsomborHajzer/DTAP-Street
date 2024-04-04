@@ -31,7 +31,7 @@ public class SlideViewerComponent extends JComponent implements PresentationObse
         this.frame = frame;
         setBackground(BACKGROUNDCOLOR);
         presentation.addObserver(this);
-        presentation.changeSlide(1);
+        presentation.changeSlide(2);
     }
 
     public Slide getSlide()

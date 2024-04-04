@@ -28,8 +28,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-
     <!-- Add the Maven Assembly Plugin configuration -->
     <build>
         <plugins>
