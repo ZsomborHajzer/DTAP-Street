@@ -15,12 +15,10 @@ public abstract class SlideItem
     }
 
 
-    public abstract Rectangle getBoundingBox(Graphics graphics,
-                                             ImageObserver observer, float scale);
+    public abstract Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale);
 
     // Draw the item
-    public abstract void draw(int x, int y, float scale,
-                              Graphics graphics, ImageObserver observer);
+    public abstract void draw(int x, int y, float scale, Graphics graphics, ImageObserver observer);
 
     public int floatToInt(float number)
     {

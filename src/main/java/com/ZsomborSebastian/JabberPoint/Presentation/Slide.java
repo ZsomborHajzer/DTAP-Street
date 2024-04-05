@@ -32,13 +32,16 @@ public class Slide
         this.items = items;
     }
 
-    public String getSlideTitle(){
+    public String getSlideTitle()
+    {
         return this.slideTitle;
     }
 
-    public void setSlideTitle(String slideTitle){
+    public void setSlideTitle(String slideTitle)
+    {
 
-        if (slideTitle.isEmpty()) {
+        if (slideTitle.isEmpty())
+        {
             throw new IllegalArgumentException("SlideTitle should not be empty");
         }
 
@@ -50,7 +53,6 @@ public class Slide
     {
         items.addElement(item);
     }
-
 
 
     // give the  SlideItem
