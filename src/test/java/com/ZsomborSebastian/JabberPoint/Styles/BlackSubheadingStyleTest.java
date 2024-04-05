@@ -18,54 +18,77 @@ class BlackSubheadingStyleTest
     }
 
     @Test
-    void getFontName()
+    void getFontName_CallMethod_ExpectHelvetica()
     {
         assertEquals("Helvetica", blackSubheadingStyle.getFontName(), "Font name should be Helvetica.");
     }
 
     @Test
-    void getIndent()
+    void getIndent_CallMethod_ExpectFontSize()
     {
         assertEquals(50, blackSubheadingStyle.getIndent(), "Indent should be 50.");
     }
 
     @Test
-    void getColor()
+    void getColor_CallMethod_ExpectCorrectColor()
     {
         assertEquals(Color.black, blackSubheadingStyle.getColor(), "Color should be black.");
     }
 
     @Test
-    void getFontSize()
+    void getFontSize_CallMethod_ExpectCorrectFontSize()
     {
         assertEquals(30, blackSubheadingStyle.getFontSize(), "Font size should be 30.");
     }
 
     @Test
-    void getVerticalMargin()
+    void getVerticalMargin_CallMethod_ExpectCorrectVerticalMargin()
     {
         assertEquals(10, blackSubheadingStyle.getVerticalMargin(), "Vertical margin should be 10.");
     }
 
     @Test
-    void getFont_AttributesOfFont_Equals_BaseAttributes()
+    void getFont_ScaleEqualsOne_ExpectBaseFontSize()
     {
-        //java.awt.Font[family=Dialog,name=Helvetica,style=bold,size=60]
-        System.out.println(blackSubheadingStyle.getFont(1));
         Font font = blackSubheadingStyle.getFont(1);
-        assertEquals(font.getFamily(), "Dialog");
-        assertEquals(font.getName(), "Helvetica");
-        assertEquals(font.getSize(), 30);
+        assertEquals(30, font.getSize());
     }
 
     @Test
-    void getFont_ScaleDoubled_FontSize_Should_Double()
+    void getFont_ScaleEqualsTwo_ExpectDoubleFontSize()
     {
-        //java.awt.Font[family=Dialog,name=Helvetica,style=bold,size=60]
-        System.out.println(blackSubheadingStyle.getFont(1));
-        Font font = blackSubheadingStyle.getFont(1);
-        assertEquals("Dialog", font.getFamily());
-        assertEquals("Helvetica", font.getName());
+        Font font = blackSubheadingStyle.getFont(2);
         assertEquals(60, font.getSize());
+    }
+
+    @Test
+    void getFont_ScaleEqualsZero_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> blackSubheadingStyle.getFont(0));
+    }
+
+    @Test
+    void getFont_NegativeNumberScale_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> blackSubheadingStyle.getFont(-4));
+    }
+
+    @Test
+    void generateFont_FontSizeIsPositive_ExpectFontSizeInput()
+    {
+        Font font = blackSubheadingStyle.generateFont(10);
+        assertEquals(10, font.getSize());
+    }
+
+    @Test
+    void generateFont_FontSizeIs0_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> blackSubheadingStyle.generateFont(0));
+    }
+
+    @Test
+    void generateFont_FontSizeIsNegative_ShouldThrowIllegalArgumentExc()
+    {
+        assertThrows(IllegalArgumentException.class, () -> blackSubheadingStyle.generateFont(-5));
     }
 }

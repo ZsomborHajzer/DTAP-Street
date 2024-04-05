@@ -4,12 +4,16 @@
 name: Lint Code Base
 
 on:
-  workflow_dispatch:
-    branches: [ "Production", "Testing" ]
+  push:
+    branches: [ "Development", "Testing" ]
+  pull_request:
+    branches: [ "Development", "Testing" ]
+
+
 jobs:
   run-lint:
     runs-on: ubuntu-latest
-    steps: git 
+    steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:

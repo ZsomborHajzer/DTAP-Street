@@ -2,10 +2,10 @@ name: Test and Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "Development", "Testing" ]
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches: [ "Development", "Testing" ]
+
 
 jobs:
   build-and-test:

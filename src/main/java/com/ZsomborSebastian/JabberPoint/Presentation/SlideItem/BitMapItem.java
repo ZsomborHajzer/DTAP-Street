@@ -16,17 +16,11 @@ public class BitMapItem extends SlideItem
     private BufferedImage bufferedImage;
     private String imageName;
 
-    public BitMapItem(Style style, String imageName) throws IOException //Q try catch block or IOException signature
+    public BitMapItem(Style style, String imageName) throws IOException
     {
         super(style);
         this.imageName = imageName;
-        // change image import method to work with packaged jar files
-        InputStream imageStream = getClass().getClassLoader().getResourceAsStream("images/" + imageName); //FIX create image folder in resources and add it to the path here
-        if (imageStream == null)
-        {
-            throw new IOException("Image file not found in resources: " + imageName);
-        }
-        this.bufferedImage = ImageIO.read(imageStream);
+        this.bufferedImage = readImageIO(fetchImageStream(imageName));
     }
 
     public BufferedImage getBufferedImage()
@@ -36,6 +30,10 @@ public class BitMapItem extends SlideItem
 
     public void setBufferedImage(BufferedImage bufferedImage)
     {
+        if (bufferedImage == null)
+        {
+            throw new NullPointerException("Image can't be null");
+        }
         this.bufferedImage = bufferedImage;
     }
 
@@ -53,24 +51,37 @@ public class BitMapItem extends SlideItem
         this.imageName = imageName;
     }
 
-    //FIX graphics argument not needed here
     @Override
     public Rectangle getBoundingBox(Graphics graphics, ImageObserver observer, float scale)
     {
-        return new Rectangle((int) (style.getIndent() * scale), 0,
-                (int) (bufferedImage.getWidth(observer) * scale),
-                ((int) (style.getFontSize() * scale)) +
-                        (int) (bufferedImage.getHeight(observer) * scale));
+        return new Rectangle(floatToInt(style.getIndent() * scale), 0,
+                floatToInt(bufferedImage.getWidth(observer) * scale),
+                (floatToInt(style.getFontSize() * scale)) +
+                        floatToInt(bufferedImage.getHeight(observer) * scale));
     }
 
     @Override
     public void draw(int x, int y, float scale, Graphics graphics, ImageObserver observer)
     {
-        int width = x + (int) (style.getIndent() * scale);
-        int height = y + (int) (style.getFontSize() * scale);
-        graphics.drawImage(bufferedImage, width, height, (int) (bufferedImage.getWidth(observer) * scale),
-                (int) (bufferedImage.getHeight(observer) * scale), observer);
+        int width = x + floatToInt(style.getIndent() * scale);
+        int height = y + floatToInt(style.getFontSize() * scale);
+        graphics.drawImage(bufferedImage, width, height, floatToInt(bufferedImage.getWidth(observer) * scale),
+                floatToInt(bufferedImage.getHeight(observer) * scale), observer);
     }
 
+    public InputStream fetchImageStream(String imageName)
+    {
+        return getClass().getClassLoader().getResourceAsStream("images/" + imageName);
+    }
 
+    public BufferedImage readImageIO(InputStream imageStream)
+    {
+        try
+        {
+            return ImageIO.read(imageStream);
+        } catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 }
