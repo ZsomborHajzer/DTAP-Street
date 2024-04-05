@@ -5,7 +5,7 @@ name: Lint Code Base
 
 on:
   push:
-    branches: [ "Development", "Testing" ]
+    branches: [ "Development", "Testing", "Presentation" ]
   pull_request:
     branches: [ "Development", "Testing" ]
 
@@ -22,7 +22,7 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
-          CHECKSTYLE_CONFIG_FILE: 'src/main/resources/checkstyle.xml'
+          CHECKSTYLE_CONFIG_FILE: 'src/main/resources/'
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: "main"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
