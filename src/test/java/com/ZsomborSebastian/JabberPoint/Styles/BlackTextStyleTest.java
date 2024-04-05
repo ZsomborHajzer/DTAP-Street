@@ -17,27 +17,27 @@ public class BlackTextStyleTest {
     }
 
     @Test
-    void getFontName() {
+    void getFontName_CallMethod_ExpectHelvetica() {
         assertEquals("Helvetica", blackTextStyle.getFontName(), "Font name should be Helvetica.");
     }
 
     @Test
-    void getIndent() {
+    void getIndent_CallMethod_ExpectFontSize() {
         assertEquals(90, blackTextStyle.getIndent(), "Indent should be 90.");
     }
 
     @Test
-    void getColor() {
+    void getColor_CallMethod_ExpectCorrectColor() {
         assertEquals(Color.black, blackTextStyle.getColor(), "Color should be black.");
     }
 
     @Test
-    void getFontSize() {
+    void getFontSize_CallMethod_ExpectCorrectFontSize() {
         assertEquals(24, blackTextStyle.getFontSize(), "Font size should be 24.");
     }
 
     @Test
-    void getVerticalMargin() {
+    void getVerticalMargin_CallMethod_ExpectCorrectVerticalMargin() {
         assertEquals(10, blackTextStyle.getVerticalMargin(), "Vertical margin should be 10.");
     }
 

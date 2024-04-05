@@ -4,9 +4,13 @@
 name: Lint Code Base
 
 on:
-  workflow_dispatch:
-    branches: [ "Production", "Testing" ]
-jobs:
+  push:
+    branches: [ "Development", "Testing" ]
+  pull_request:
+    branches: [ "Development", "Testing" ]
+
+
+jobs:q
   run-lint:
     runs-on: ubuntu-latest
     steps: git 

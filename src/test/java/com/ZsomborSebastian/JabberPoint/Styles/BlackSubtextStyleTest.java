@@ -22,31 +22,31 @@ public class BlackSubtextStyleTest
     }
 
     @Test
-    void getFontName()
+    void getFontName_CallMethod_ExpectHelvetica()
     {
         assertEquals("Helvetica", blackSubtextStyle.getFontName(), "Font name should be Helvetica.");
     }
 
     @Test
-    void getIndent()
+    void getIndent_CallMethod_ExpectFontSize()
     {
         assertEquals(70, blackSubtextStyle.getIndent(), "Indent should be 70."); // Corrected based on the initial values
     }
 
     @Test
-    void getColor()
+    void getColor_CallMethod_ExpectCorrectColor()
     {
         assertEquals(Color.black, blackSubtextStyle.getColor(), "Color should be black.");
     }
 
     @Test
-    void getFontSize()
+    void getFontSize_CallMethod_ExpectCorrectFontSize()
     {
         assertEquals(30, blackSubtextStyle.getFontSize(), "Font size should be 30."); // Corrected based on the initial values
     }
 
     @Test
-    void getVerticalMargin()
+    void getVerticalMargin_CallMethod_ExpectCorrectVerticalMargin()
     {
         assertEquals(10, blackSubtextStyle.getVerticalMargin(), "Vertical margin should be 10.");
     }

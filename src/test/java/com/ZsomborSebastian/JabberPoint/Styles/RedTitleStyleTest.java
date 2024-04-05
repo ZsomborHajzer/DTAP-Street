@@ -17,27 +17,27 @@ class RedTitleStyleTest
     }
 
     @Test
-    void getFontName() {
+    void getFontName_CallMethod_ExpectHelvetica() {
         assertEquals("Helvetica", redTitleStyle.getFontName(), "Font name should be Helvetica.");
     }
 
     @Test
-    void getIndent() {
+    void getIndent_CallMethod_ExpectFontSize() {
         assertEquals(0, redTitleStyle.getIndent(), "Indent should be 0.");
     }
 
     @Test
-    void getColor() {
+    void getColor_CallMethod_ExpectCorrectColor() {
         assertEquals(Color.red, redTitleStyle.getColor(), "Color should be black.");
     }
 
     @Test
-    void getFontSize() {
+    void getFontSize_CallMethod_ExpectCorrectFontSize() {
         assertEquals(48, redTitleStyle.getFontSize(), "Font size should be 48.");
     }
 
     @Test
-    void getVerticalMargin() {
+    void getVerticalMargin_CallMethod_ExpectCorrectVerticalMargin() {
         assertEquals(20, redTitleStyle.getVerticalMargin(), "Vertical margin should be 20.");
     }
 

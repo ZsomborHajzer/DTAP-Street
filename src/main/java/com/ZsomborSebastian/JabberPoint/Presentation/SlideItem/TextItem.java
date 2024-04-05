@@ -20,8 +20,6 @@ public class TextItem extends SlideItem
     private String inputText;
     private AttributedString attributedString;
 
-    private static final String EMPTYTEXT = "No Text Given"; //Q IS this needed or what
-
     public TextItem(String inputText, Style style)
     {
         super(style);
@@ -84,6 +82,10 @@ public class TextItem extends SlideItem
 
     public float wrappingWidthCalculator(float scale)
     {
+        if (scale < 0)
+        {
+            throw new IllegalArgumentException("Scale can not be zero");
+        }
         return ((Slide.WIDTH - this.style.getIndent()) * scale);
     }
 
@@ -101,7 +103,7 @@ public class TextItem extends SlideItem
         return new Rectangle(floatToInt(style.getIndent() * scale), 0, xSize, ySize);
     }
 
-    private int calculateMaxWidth(List<TextLayout> layouts)
+    protected int calculateMaxWidth(List<TextLayout> layouts)
     {
         int maxWidth = 0;
         for (TextLayout layout : layouts)
@@ -115,8 +117,11 @@ public class TextItem extends SlideItem
         return maxWidth;
     }
 
-    private int calculateTotalHeight(List<TextLayout> layouts, float scale)
+    protected int calculateTotalHeight(List<TextLayout> layouts, float scale)
     {
+        if (scale < 0) {
+            throw new IllegalArgumentException("Input value should be more or equal to zero");
+        }
         int totalHeight = floatToInt(style.getFontSize() * scale);
         for (TextLayout layout : layouts)
         {
@@ -138,7 +143,6 @@ public class TextItem extends SlideItem
         Graphics2D g2d = (Graphics2D) graphics;
         g2d.setColor(style.getColor());
         drawText(pen, g2d, layouts);
-
     }
 
     public Point createNewPoint(int x, int y, float scale)
@@ -146,7 +150,8 @@ public class TextItem extends SlideItem
         return new Point(x + floatToInt(style.getIndent() * scale), y + floatToInt(style.getFontSize() * scale));
     }
 
-    public void drawText(Point pen, Graphics2D g2d, List<TextLayout> layouts) {
+    public void drawText(Point pen, Graphics2D g2d, List<TextLayout> layouts)
+    {
         for (TextLayout layout : layouts)
         {
             pen.y += floatToInt(layout.getAscent());

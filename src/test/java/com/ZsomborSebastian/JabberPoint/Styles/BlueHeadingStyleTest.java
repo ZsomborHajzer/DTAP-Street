@@ -17,27 +17,27 @@ public class BlueHeadingStyleTest {
     }
 
     @Test
-    void getFontName() {
+    void getFontName_CallMethod_ExpectHelvetica() {
         assertEquals("Helvetica", blueHeadingStyle.getFontName(), "Font name should be Helvetica.");
     }
 
     @Test
-    void getIndent() {
+    void getIndent_CallMethod_ExpectFontSize() {
         assertEquals(20, blueHeadingStyle.getIndent(), "Indent should be 20.");
     }
 
     @Test
-    void getColor() {
+    void getColor_CallMethod_ExpectCorrectColor() {
         assertEquals(Color.blue, blueHeadingStyle.getColor(), "Color should be black.");
     }
 
     @Test
-    void getFontSize() {
+    void getFontSize_CallMethod_ExpectCorrectFontSize() {
         assertEquals(40, blueHeadingStyle.getFontSize(), "Font size should be 40.");
     }
 
     @Test
-    void getVerticalMargin() {
+    void getVerticalMargin_CallMethod_ExpectCorrectVerticalMargin() {
         assertEquals(10, blueHeadingStyle.getVerticalMargin(), "Vertical margin should be 10.");
     }
 
