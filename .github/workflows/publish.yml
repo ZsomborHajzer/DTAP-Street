@@ -2,7 +2,7 @@
 name: Publish JAR file
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "Development" ]
   pull_request:
     branches: [ "main" ]
 jobs:
@@ -19,12 +19,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-
-      - name: Clean with Maven
-        run: mvn clean --file pom.xml
-
-      - name: Package the maven project
-        run: mvn -B package --file pom.xml
 
       - name: Create executable Jar File
         run: mvn clean compile assembly:single
