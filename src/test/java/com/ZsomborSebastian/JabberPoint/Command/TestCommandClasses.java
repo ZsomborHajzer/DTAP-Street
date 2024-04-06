@@ -54,6 +54,9 @@ public class TestCommandClasses {
     // Arrange
     ClearCommand cmd = new ClearCommand(mockPresentation);
 
+    // Control behavior of mock object
+    doNothing().when(mockPresentation).resetPresentation();
+
     // Act and Assert
     try {
       cmd.execute();
@@ -72,12 +75,12 @@ public class TestCommandClasses {
 
     // Act & Assert: IllegalArgumentException is thrown
     assertThrows(
-            IllegalArgumentException.class,
-            new Executable() {
-              public void execute() {
-                cmd.execute();
-              }
-            });
+        IllegalArgumentException.class,
+        new Executable() {
+          public void execute() {
+            cmd.execute();
+          }
+        });
   }
 
   @Test
@@ -88,7 +91,7 @@ public class TestCommandClasses {
 
     // Control the behavior of the mock object
     when(mockPresentation.getSlideNumber()).thenReturn(1);
-    doNothing().when(mockPresentation).setSlideNumber(anyInt()); // add this line
+    doNothing().when(mockPresentation).setSlideNumber(anyInt());
 
     // Act
     cmd.execute();
@@ -96,5 +99,4 @@ public class TestCommandClasses {
     // Assert
     verify(mockPresentation).setSlideNumber(slideToGo - 1);
   }
-  // Tests for ExitCommand might be tricky due to System.exit() call. Skipping the example for that.
 }
