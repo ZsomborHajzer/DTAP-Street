@@ -13,7 +13,7 @@ public class Presentation
     private ArrayList<Slide> slides = null;
     private int currentSlideNumber = 0;
     private SlideViewerComponent slideViewComponent;
-
+    private int currentSlideIndex;
 
     public Presentation()
     {
@@ -21,7 +21,6 @@ public class Presentation
         slideViewComponent = null;
         resetPresentation();
     }
-
 
     public String getPresentationTitle()
     {
@@ -39,12 +38,10 @@ public class Presentation
         return this.slideViewComponent;
     }
 
-
     public void setSlideViewerComponent(SlideViewerComponent slideViewerComponent)
     {
         this.slideViewComponent = slideViewerComponent;
     }
-
 
     public ArrayList<Slide> getSlides()
     {
@@ -80,7 +77,6 @@ public class Presentation
         notifyObservers();
     }
 
-
     public void previousSlide()
     {
         if (currentSlideNumber > 0)
@@ -101,7 +97,7 @@ public class Presentation
     }
 
     // Delete the presentation to be ready for the next one.
-    void resetPresentation()
+    public void resetPresentation()
     {
         slides = new ArrayList<>();
         changeSlide(0);

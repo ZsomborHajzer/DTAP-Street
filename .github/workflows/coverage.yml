@@ -1,5 +1,7 @@
 name: Publish code coverage
 on:
+  push:
+    branches: ["Presentation", "Controller"]
   workflow_dispatch:
 
 jobs:
