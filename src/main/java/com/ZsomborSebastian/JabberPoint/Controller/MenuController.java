@@ -15,11 +15,11 @@ public class MenuController extends MenuBar
     private Frame parent;
     private Presentation presentation;
     private XMLAccessor xmlAccessor;
-    private final SaveCommand SaveFileCommand;
-    private final LoadCommand LoadFileCommand;
-    private final ClearCommand ClearFileCommand;
-    private final GoToCommand GoToSlideCommand;
-    private final ExitCommand ExitProgramCommand;
+    private final SaveCommand saveFileCommand;
+    private final LoadCommand loadFileCommand;
+    private final ClearCommand clearFileCommand;
+    private final GoToCommand goToSlideCommand;
+    private final ExitCommand exitProgramCommand;
 
     private static final long serialVersionUID = 227L;
     protected static final String ABOUT = "About";
@@ -47,11 +47,11 @@ public class MenuController extends MenuBar
         parent = frame;
         presentation = pres;
         int slideToGo = 0;
-        ExitProgramCommand = exitProgramCommand;
-        GoToSlideCommand = goToSlideCommand;
-        ClearFileCommand = clearFileCommand;
-        SaveFileCommand = saveFileCommand;
-        LoadFileCommand = loadFileCommand;
+        this.exitProgramCommand = exitProgramCommand;
+        this.goToSlideCommand = goToSlideCommand;
+        this.clearFileCommand = clearFileCommand;
+        this.saveFileCommand = saveFileCommand;
+        this.loadFileCommand = loadFileCommand;
         initMenu();
     }
 
@@ -73,11 +73,13 @@ public class MenuController extends MenuBar
                             try
                             {
                                 openFile();
-                            } catch (IOException ex)
+                            }
+                            catch (IOException ex)
                             {
                                 throw new RuntimeException(ex);
                             }
-                        }));
+                        }
+                        ));
         fileMenu.add(createMenuItem(NEW, e -> clearPresentation()));
         fileMenu.add(createMenuItem(SAVE, e -> saveFile()));
         fileMenu.addSeparator();
@@ -103,22 +105,22 @@ public class MenuController extends MenuBar
 
     public void openFile() throws IOException
     {
-        LoadFileCommand.execute();
+        loadFileCommand.execute();
     }
 
     public void clearPresentation()
     {
-        ClearFileCommand.execute();
+        clearFileCommand.execute();
     }
 
     public void saveFile()
     {
-        SaveFileCommand.execute();
+        saveFileCommand.execute();
     }
 
     public void goToPage()
     {
-        GoToSlideCommand.execute();
+        goToSlideCommand.execute();
     }
 
     public void exit()

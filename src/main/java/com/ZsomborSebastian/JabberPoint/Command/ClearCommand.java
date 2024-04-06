@@ -20,7 +20,8 @@ public class ClearCommand extends AbstractCommand implements Command
         if (this.presentation != null)
         {
             this.presentation.resetPresentation();
-        } else
+        }
+        else
         {
             throw new IllegalArgumentException("Presentation is null");
         }

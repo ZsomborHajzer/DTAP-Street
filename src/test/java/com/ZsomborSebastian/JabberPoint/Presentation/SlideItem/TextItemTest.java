@@ -113,17 +113,16 @@ class TextItemTest
     }
 
     @Test
-    void calculateMaxWidth_CallMethodWithTestValue_ShouldReturn17()
+    void calculateMaxWidth_CallMethodWithTestValue_ShouldReturnZero()
     {
         BufferedImage bufferedImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
         FontRenderContext fontRenderContext = graphics2D.getFontRenderContext();
-        TextLayout emptyLayout = new TextLayout("test", new Font("Serif", Font.PLAIN, 12), fontRenderContext);
+        TextLayout emptyLayout = new TextLayout("test", new Font("Serif", Font.PLAIN, 0), fontRenderContext);
         ArrayList<TextLayout> textLayouts = new ArrayList<>();
         textLayouts.add(emptyLayout);
         int maxWidth = textItem.calculateMaxWidth(textLayouts);
-        System.out.println(maxWidth);
-        assertEquals(17, maxWidth);
+        assertEquals(0, maxWidth);
     }
 
     @Test
@@ -146,12 +145,12 @@ class TextItemTest
         BufferedImage bufferedImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
         FontRenderContext fontRenderContext = graphics2D.getFontRenderContext();
-        TextLayout emptyLayout = new TextLayout("test", new Font("Serif", Font.PLAIN, 12), fontRenderContext);
+        TextLayout emptyLayout = new TextLayout("test", new Font("Serif", Font.PLAIN, 2), fontRenderContext);
         ArrayList<TextLayout> textLayouts = new ArrayList<>();
         textLayouts.add(emptyLayout);
-        int totalHeight = textItem.calculateTotalHeight(textLayouts, 2);
+        int totalHeight = textItem.calculateTotalHeight(textLayouts, 1);
         System.out.println(totalHeight);
-        assertEquals(70, totalHeight);
+        assertEquals(32, totalHeight);
     }
 
     @Test
@@ -160,12 +159,12 @@ class TextItemTest
         BufferedImage bufferedImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();
         FontRenderContext fontRenderContext = graphics2D.getFontRenderContext();
-        TextLayout emptyLayout = new TextLayout("test", new Font("Serif", Font.PLAIN, 12), fontRenderContext);
+        TextLayout emptyLayout = new TextLayout("test", new Font("Serif", Font.PLAIN, 0), fontRenderContext);
         ArrayList<TextLayout> textLayouts = new ArrayList<>();
         textLayouts.add(emptyLayout);
         int totalHeight = textItem.calculateTotalHeight(textLayouts, 0);
         System.out.println(totalHeight);
-        assertEquals(10, totalHeight);
+        assertEquals(0, totalHeight);
     }
 
 

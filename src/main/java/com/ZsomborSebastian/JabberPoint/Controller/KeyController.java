@@ -66,7 +66,8 @@ public class KeyController extends KeyAdapter
             try
             {
                 command.execute();
-            } catch (IOException e)
+            }
+            catch (IOException e)
             {
                 throw new RuntimeException(e);
             }

@@ -19,7 +19,8 @@ public class GoToCommand extends AbstractCommand
         if (slideToGo > 0)
         {
             presentation.setSlideNumber(slideToGo - 1);
-        } else
+        }
+        else
         {
             throw new IllegalArgumentException("Invalid slide number");
         }
