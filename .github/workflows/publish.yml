@@ -4,12 +4,8 @@ on:
   workflow_dispatch:
     branches:
       - Development
-<<<<<<< HEAD
-
-=======
       - Presentation
->>>>>>> Development
-
+      - Controlller
 jobs:
   my_job:
     runs-on: ubuntu-latest

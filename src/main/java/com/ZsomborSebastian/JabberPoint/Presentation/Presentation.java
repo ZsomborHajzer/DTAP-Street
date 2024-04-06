@@ -32,15 +32,6 @@ public class Presentation
         this.presentationTitle = presentationTitle;
     }
 
-    public ArrayList<Slide> getSlides()
-    {
-        return slides;
-    }
-
-    public void setSlides(ArrayList<Slide> slides)
-    {
-        this.slides = slides;
-    }
 
     public SlideViewerComponent getSlideViewerComponent()
     {
@@ -50,6 +41,16 @@ public class Presentation
     public void setSlideViewerComponent(SlideViewerComponent slideViewerComponent)
     {
         this.slideViewComponent = slideViewerComponent;
+    }
+
+    public ArrayList<Slide> getSlides()
+    {
+        return slides;
+    }
+
+    public void setSlides(ArrayList<Slide> slides)
+    {
+        this.slides = slides;
     }
 
     public int getSlideNumber()
@@ -64,47 +65,6 @@ public class Presentation
             throw new IllegalArgumentException("Slide Number Out of Range");
         }
         this.currentSlideNumber = slideNumber;
-    }
-
-    public void showNextSlide() {
-        if (canMoveToNextSlide()) {
-            currentSlideIndex++;
-            displayCurrentSlide();
-        }
-    }
-
-    public void showPreviousSlide() {
-        if (canMoveToPreviousSlide()) {
-            currentSlideIndex--;
-            displayCurrentSlide();
-        }
-    }
-
-    public void jumpToSlide(int slideNumber) {
-        if (isValidSlideNumber(slideNumber)) {
-            currentSlideIndex = slideNumber;
-            displayCurrentSlide();
-        }
-    }
-
-    private boolean canMoveToNextSlide() {
-        return currentSlideIndex < slides.size() - 1;
-    }
-
-    private boolean canMoveToPreviousSlide() {
-        return currentSlideIndex > 0;
-    }
-
-    private boolean isValidSlideNumber(int slideNumber) {
-        return slideNumber >= 0 && slideNumber < slides.size();
-    }
-
-    private void displayCurrentSlide() {
-        Slide currentSlide = slides.get(currentSlideIndex);
-        // Logic to display the current slide goes here
-    }
-
-    public void clear() {
     }
 
     public void changeSlide(int number)
@@ -135,7 +95,7 @@ public class Presentation
     }
 
     // Delete the presentation to be ready for the next one.
-    void resetPresentation()
+    public void resetPresentation()
     {
         slides = new ArrayList<Slide>();
         changeSlide(0);

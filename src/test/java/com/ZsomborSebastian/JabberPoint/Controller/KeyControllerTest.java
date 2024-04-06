@@ -1,9 +1,8 @@
 package com.ZsomborSebastian.JabberPoint.Controller;
 
-import com.ZsomborSebastian.JabberPoint.Command.AbstractSlideCommand;
-import com.ZsomborSebastian.JabberPoint.Command.JumpToSlideCommand;
-import com.ZsomborSebastian.JabberPoint.Command.NextSlideSlideCommand;
-import com.ZsomborSebastian.JabberPoint.Command.PreviousSlideSlideCommand;
+import com.ZsomborSebastian.JabberPoint.Command.*;
+import com.ZsomborSebastian.JabberPoint.Command.AbstractCommand;
+import com.ZsomborSebastian.JabberPoint.Command.GoToCommand;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,81 +14,75 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class KeyControllerTest {
 
-    private Presentation testPresentation;
-    private NextSlideSlideCommand testNextSlideCommand;
-    private PreviousSlideSlideCommand testPreviousSlideCommand;
-    private JumpToSlideCommand testJumpToSlideCommand;
-    private KeyController testKeyController;
+  private Presentation testPresentation;
+  private NextCommand testNextSlideCommand;
+  private PreviousCommand testPreviousSlideCommand;
+  private GoToCommand testGoToSlideCommand;
+  private KeyController testKeyController;
 
-    @BeforeEach
-    void setup()
-    {
-        testPresentation = new Presentation();
-        testKeyController = new KeyController(testPresentation);
-        testNextSlideCommand = new NextSlideSlideCommand(testPresentation);
-        testPreviousSlideCommand = new PreviousSlideSlideCommand(testPresentation);
-        testJumpToSlideCommand = new JumpToSlideCommand(testPresentation);
 
-        testKeyController.registerSlideCommand(KeyEvent.VK_RIGHT, testNextSlideCommand);
-        testKeyController.registerSlideCommand(KeyEvent.VK_LEFT, testPreviousSlideCommand);
-        testKeyController.registerSlideCommand(KeyEvent.VK_UP, testJumpToSlideCommand);
-    }
+  @BeforeEach
+  void setup() {
+    int slideToGo = 0;
+    testPresentation = new Presentation();
+    testKeyController = new KeyController(testPresentation);
+    testNextSlideCommand = new NextCommand(testPresentation);
+    testPreviousSlideCommand = new PreviousCommand(testPresentation);
+    testGoToSlideCommand = new GoToCommand(testPresentation, slideToGo);
+    testKeyController.registerSlideCommand(KeyEvent.VK_RIGHT, testNextSlideCommand);
+    testKeyController.registerSlideCommand(KeyEvent.VK_LEFT, testPreviousSlideCommand);
+    testKeyController.registerSlideCommand(KeyEvent.VK_UP, testGoToSlideCommand);
+  }
 
-    @Test
-    public void getCommandForKey_rightArrowKeyToNextSlideCommand_GetRightArrowKey_expectSuccess()
-    {
+  @Test
+  public void getCommandForKey_rightArrowKeyToNextSlideCommand_GetRightArrowKey_expectSuccess() {
 
-        AbstractSlideCommand registeredCommand = testKeyController.getCommandForKey(KeyEvent.VK_RIGHT);
+    AbstractCommand registeredCommand = testKeyController.getCommandForKey(KeyEvent.VK_RIGHT);
 
-        assertNotNull(registeredCommand);
-        assertEquals(testNextSlideCommand, registeredCommand);
-    }
+    assertNotNull(registeredCommand);
+    assertEquals(testNextSlideCommand, registeredCommand);
+  }
 
-    @Test
-    public void getCommandForKey_getUnassignedArrowKey_expectNull() {
+  @Test
+  public void getCommandForKey_getUnassignedArrowKey_expectNull() {
 
-        AbstractSlideCommand registeredCommand = testKeyController.getCommandForKey(KeyEvent.VK_DOWN);
+    AbstractCommand registeredCommand = testKeyController.getCommandForKey(KeyEvent.VK_DOWN);
 
-        assertNull(registeredCommand);
-    }
+    assertNull(registeredCommand);
+  }
 
-    @Test
-    public void keyPressed_keyPressedRightArrow_commandExecutes() {
-        NextSlideSlideCommand mockNextSlideCommand = mock(NextSlideSlideCommand.class);
+  @Test
+  public void keyPressed_keyPressedRightArrow_commandExecutes() {
+    NextCommand mockNextSlideCommand = mock(NextCommand.class);
 
-        testKeyController.registerSlideCommand(KeyEvent.VK_RIGHT, mockNextSlideCommand);
+    testKeyController.registerSlideCommand(KeyEvent.VK_RIGHT, mockNextSlideCommand);
 
-        // Create a KeyEvent object representing a key press event for the right arrow key
-        KeyEvent mockKeyEvent = mock(KeyEvent.class);
-        when(mockKeyEvent.getKeyCode()).thenReturn(KeyEvent.VK_RIGHT);
+    // Create a KeyEvent object representing a key press event for the right arrow key
+    KeyEvent mockKeyEvent = mock(KeyEvent.class);
+    when(mockKeyEvent.getKeyCode()).thenReturn(KeyEvent.VK_RIGHT);
 
-        testKeyController.keyPressed(mockKeyEvent);
+    testKeyController.keyPressed(mockKeyEvent);
 
-        verify(mockNextSlideCommand).execute();
-    }
+    verify(mockNextSlideCommand).execute();
+  }
 
-    @Test
-    public void keyPressed_keyPressedUnmappedKey_noCommandExecutes() {
-        NextSlideSlideCommand testNextSlideCommand = mock(NextSlideSlideCommand.class);
-        PreviousSlideSlideCommand testPreviousSlideCommand = mock(PreviousSlideSlideCommand.class);
-        JumpToSlideCommand testJumpToSlideCommand = mock(JumpToSlideCommand.class);
+  @Test
+  public void keyPressed_keyPressedUnmappedKey_noCommandExecutes() {
+    NextCommand testNextSlideCommand = mock(NextCommand.class);
+    PreviousCommand testPreviousSlideCommand = mock(PreviousCommand.class);
+    GoToCommand testGoToSlideCommand = mock(GoToCommand.class);
 
-        KeyEvent mockKeyEvent = mock(KeyEvent.class);
-        when(mockKeyEvent.getKeyCode()).thenReturn(KeyEvent.VK_DOWN); // Assuming VK_DOWN is not mapped
+    KeyEvent mockKeyEvent = mock(KeyEvent.class);
+    when(mockKeyEvent.getKeyCode()).thenReturn(KeyEvent.VK_DOWN); // Assuming VK_DOWN is not mapped
 
-        testKeyController.keyPressed(mockKeyEvent);
+    testKeyController.keyPressed(mockKeyEvent);
 
-        verifyNoInteractions(testNextSlideCommand, testPreviousSlideCommand, testJumpToSlideCommand);
-    }
+    verifyNoInteractions(testNextSlideCommand, testPreviousSlideCommand, testGoToSlideCommand);
+  }
 
-    @Test
-    public void JumpToSlide_NavigatesToValidSlide() {
+  @Test
+  public void JumpToSlide_NavigatesToValidSlide() {}
 
-    }
-
-    @Test
-    public void JumpToSlide_NavigatesToInvalidSlide()
-    {
-
-    }
+  @Test
+  public void JumpToSlide_NavigatesToInvalidSlide() {}
 }
