@@ -13,31 +13,36 @@ class ClearCommandTest
     Presentation mockPresentation;
 
     @BeforeEach
-    public void setup() {
+    public void setup()
+    {
         mockPresentation = mock(Presentation.class);
     }
 
     @AfterEach
-    public void teardown() {
+    public void teardown()
+    {
         mockPresentation = null;
     }
 
-  @Test
-  public void testClearCommandPresentationNotNull() {
-    // Arrange
-    ClearCommand cmd = new ClearCommand(mockPresentation);
+    @Test
+    public void testClearCommandPresentationNotNull()
+    {
+        // Arrange
+        ClearCommand cmd = new ClearCommand(mockPresentation);
 
-    // Control behavior of mock object
-    doNothing().when(mockPresentation).resetPresentation();
+        // Control behavior of mock object
+        doNothing().when(mockPresentation).resetPresentation();
 
-    // Act and Assert
-    try {
-      cmd.execute();
-    } catch (IllegalArgumentException e) {
-      fail("Presentation is null");
+        // Act and Assert
+        try
+        {
+            cmd.execute();
+        } catch (IllegalArgumentException e)
+        {
+            fail("Presentation is null");
+        }
+
+        // Assert
+        verify(mockPresentation).resetPresentation();
     }
-
-    // Assert
-    verify(mockPresentation).resetPresentation();
-  }
 }
