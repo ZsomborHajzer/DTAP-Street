@@ -19,14 +19,12 @@ import static org.mockito.Mockito.*;
 class SlideTest
 {
     private Slide slide;
-    private Presentation presentation;
     private Style style;
 
     @BeforeEach
     void setup()
     {
         this.slide = new Slide();
-        this.presentation = new Presentation();
         this.style = new RedTitleStyle();
 
 
