@@ -1,5 +1,6 @@
 package com.ZsomborSebastian.JabberPoint.SlideViewer;
 
+import com.ZsomborSebastian.JabberPoint.Controller.KeyController;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
 import javax.swing.*;
@@ -34,7 +35,7 @@ public class SlideViewerFrame extends JFrame
             }
         });
         getContentPane().add(slideViewerComponent);
-//        addKeyListener(new KeyController(presentation)); // add a controller
+        addKeyListener(new KeyController(presentation)); // add a controller
 //        setMenuBar(new MenuController(this, presentation));	// add another controller
         setSize(new Dimension(WIDTH, HEIGHT)); // Same sizes as Slide has.
         setVisible(true);
