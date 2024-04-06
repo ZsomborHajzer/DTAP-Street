@@ -3,6 +3,8 @@ package com.ZsomborSebastian.JabberPoint.Command;
 import com.ZsomborSebastian.JabberPoint.Accessor.XMLAccessor;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
+import java.io.IOException;
+
 public class SaveCommand extends AbstractCommand {
 
   private String fileName;
@@ -14,7 +16,7 @@ public class SaveCommand extends AbstractCommand {
   }
 
   @Override
-  public void execute() {
+  public void execute() throws IOException {
     // Just create an XMLAccessor when you need it.
     XMLAccessor xmlAccessor = new XMLAccessor();
     xmlAccessor.saveFile(presentation, fileName);

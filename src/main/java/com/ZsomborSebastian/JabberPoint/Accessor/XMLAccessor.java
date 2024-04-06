@@ -2,11 +2,15 @@ package com.ZsomborSebastian.JabberPoint.Accessor;
 
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
-public class XMLAccessor {
+import java.io.IOException;
+
+public class XMLAccessor extends Accessor {
 
   public XMLAccessor() {}
 
-  public static void saveFile(Presentation presentation, Object filename) {}
+  @Override
+  public void saveFile(Presentation p, String fn) throws IOException {}
 
-  public static void loadFile(Presentation presentation, String filename) {}
+  @Override
+  public void loadFile(Presentation p, String fn) throws IOException {}
 }
