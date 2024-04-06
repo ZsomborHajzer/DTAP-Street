@@ -13,7 +13,8 @@ public abstract class Style
     protected Font font;
 
     // Constructor
-    public Style(String fontName, int indent, Color color, int fontSize, int verticalMargin) {
+    public Style(String fontName, int indent, Color color, int fontSize, int verticalMargin)
+    {
         this.fontName = fontName;
         this.indent = indent;
         this.color = color;
