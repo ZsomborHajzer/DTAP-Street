@@ -19,6 +19,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Clean with Maven
+      - name: Run checkstyle linter through the codebase
         run: mvn checkstyle:check
 
