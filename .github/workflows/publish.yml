@@ -1,11 +1,10 @@
 # .github/workflows/main.yml
 name: Publish JAR file
 on:
-  workflow_dispatch:
-    branches:
-      - Development
-      - Presentation
-      - Controlller
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 jobs:
   my_job:
     runs-on: ubuntu-latest
