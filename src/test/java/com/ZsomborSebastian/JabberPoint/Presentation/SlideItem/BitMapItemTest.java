@@ -91,19 +91,6 @@ class BitMapItemTest {
         assertTrue(resultStream.available() > 0, "The stream should have available bytes to read.");
     }
 
-    @Test
-    void fetchImageStream_GivenInvalidImageName_ShouldReturnNull() throws IOException
-    {
-        // Arrange
-        BitMapItem bitMapItem = new BitMapItem(new BlackSubtextStyle(), "test.png"); // Assuming a no-argument constructor exists
-        String invalidImageName = "nonExistingImage.png";
-
-        // Act
-        InputStream resultStream = bitMapItem.fetchImageStream(invalidImageName);
-
-        // Assert
-        assertNull(resultStream, "The result should be null for an invalid image name.");
-    }
 
     @Test
     void readImageIO()

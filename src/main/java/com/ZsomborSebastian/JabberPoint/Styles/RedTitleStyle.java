@@ -13,7 +13,8 @@ public class RedTitleStyle extends Style
     @Override
     public Font getFont(float scale)
     {
-        if (scale <= 0) {
+        if (scale <= 0)
+        {
             throw new IllegalArgumentException("Scale can't be less or equal to 0");
         }
         return font.deriveFont(fontSize * scale);
@@ -22,7 +23,8 @@ public class RedTitleStyle extends Style
     @Override
     public Font generateFont(int fontSize)
     {
-        if (fontSize <= 0) {
+        if (fontSize <= 0)
+        {
             throw new IllegalArgumentException("Font can't be less or equal to 0");
         }
         return new Font(fontName, Font.BOLD, fontSize);

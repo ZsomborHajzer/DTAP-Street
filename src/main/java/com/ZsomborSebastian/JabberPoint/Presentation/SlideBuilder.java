@@ -52,7 +52,8 @@ public class SlideBuilder
         {
             BitMapItem bitMapItem = new BitMapItem(style, imageName);
             items.add(bitMapItem);
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             throw new RuntimeException(e);
         }

@@ -119,7 +119,8 @@ public class TextItem extends SlideItem
 
     protected int calculateTotalHeight(List<TextLayout> layouts, float scale)
     {
-        if (scale < 0) {
+        if (scale < 0)
+        {
             throw new IllegalArgumentException("Input value should be more or equal to zero");
         }
         int totalHeight = floatToInt(style.getFontSize() * scale);

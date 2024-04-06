@@ -4,8 +4,9 @@ public class StylesFactory
 {
     public Style createStyle(StyleTypes styleType)
     {
-        if (styleType == null) {
-           throw new IllegalArgumentException("Null input arguments are not accepted");
+        if (styleType == null)
+        {
+            throw new IllegalArgumentException("Null input arguments are not accepted");
         }
 
         return switch (styleType)

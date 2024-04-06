@@ -79,7 +79,8 @@ public class BitMapItem extends SlideItem
         try
         {
             return ImageIO.read(imageStream);
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             throw new RuntimeException(e);
         }
