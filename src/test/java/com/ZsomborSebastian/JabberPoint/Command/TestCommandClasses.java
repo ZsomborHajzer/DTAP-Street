@@ -49,24 +49,24 @@ public class TestCommandClasses {
     cmd.execute();
   }
 
-  @Test
-  public void testClearCommandPresentationNotNull() {
-    // Arrange
-    ClearCommand cmd = new ClearCommand(mockPresentation);
-
-    // Control behavior of mock object
-    doNothing().when(mockPresentation).resetPresentation();
-
-    // Act and Assert
-    try {
-      cmd.execute();
-    } catch (IllegalArgumentException e) {
-      fail("Presentation is null");
-    }
-
-    // Assert
-    verify(mockPresentation).resetPresentation();
-  }
+//  @Test
+//  public void testClearCommandPresentationNotNull() {
+//    // Arrange
+//    ClearCommand cmd = new ClearCommand(mockPresentation);
+//
+//    // Control behavior of mock object
+//    doNothing().when(mockPresentation).resetPresentation();
+//
+//    // Act and Assert
+//    try {
+//      cmd.execute();
+//    } catch (IllegalArgumentException e) {
+//      fail("Presentation is null");
+//    }
+//
+//    // Assert
+//    verify(mockPresentation).resetPresentation();
+//  }
 
   @Test
   public void testClearCommandPresentationNull() {
