@@ -4,14 +4,17 @@ import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
 import java.awt.*;
 
-public class ExitCommand extends AbstractCommand implements Command {
+public class ExitCommand extends AbstractCommand implements Command
+{
 
-  public ExitCommand(Presentation presentation) {
-    super(presentation);
-  }
+    public ExitCommand(Presentation presentation)
+    {
+        super(presentation);
+    }
 
-  @Override
-  public void execute() {
-    presentation.exitProgram(0);
-  }
+    @Override
+    public void execute()
+    {
+        presentation.exitProgram(0);
+    }
 }
