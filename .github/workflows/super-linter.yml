@@ -19,13 +19,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Clean with Maven
+      - name: Run checkstyle linter through the codebase
         run: mvn checkstyle:check
 
-      - name: Lint Code Base
-        uses: github/super-linter@v4
-        env:
-          CHECKSTYLE_CONFIG_FILE: 'src/main/resources/'
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: "main"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

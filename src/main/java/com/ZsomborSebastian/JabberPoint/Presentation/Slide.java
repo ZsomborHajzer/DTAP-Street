@@ -77,27 +77,18 @@ public class Slide
 
 
     // draw the slide
-    public void drawSlide(Graphics graphics, Rectangle area, ImageObserver view)
+    public void drawSlide(Graphics graphics, Rectangle area, ImageObserver observer)
     {
-        System.out.println("Current Slide " + getSlideTitle());
         float scale = getScale(area);
-
         int y = area.y;
-
         SlideItem slideItem = new TextItem(getSlideTitle(), new RedTitleStyle());  //rename this to presentation title
-
-        slideItem.draw(area.x, y, scale, graphics, view);
-
-        y += slideItem.getBoundingBox(graphics, view, scale).height;
-
+        slideItem.draw(area.x, y, scale, graphics, observer);
+        y += slideItem.getBoundingBox(graphics, observer, scale).height;
         for (int i = 0; i < getNumberOfItems(); i++)
         {
             slideItem = getAllSlideItems().elementAt(i);
-            System.out.println(slideItem);
-
-            slideItem.draw(area.x, y, scale, graphics, view);
-
-            y += slideItem.getBoundingBox(graphics, view, scale).height;
+            slideItem.draw(area.x, y, scale, graphics, observer);
+            y += slideItem.getBoundingBox(graphics, observer, scale).height;
         }
     }
 
