@@ -11,20 +11,20 @@ import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class TestCommandClasses {
 
-  Presentation mockPresentation; // declaration moved here
+  Presentation mockPresentation;
 
   @BeforeEach
   public void setup() {
-    mockPresentation = mock(Presentation.class); // initialization moved to setup method
+    mockPresentation = mock(Presentation.class);
   }
 
   @AfterEach
   public void teardown() {
-    mockPresentation = null; // clear the mockPresentation after each test
+    mockPresentation = null;
   }
 
   @Test
@@ -60,7 +60,7 @@ public class TestCommandClasses {
     }
 
     // Assert
-    Mockito.verify(mockPresentation).resetPresentation();
+    verify(mockPresentation).resetPresentation();
   }
 
   @Test
@@ -70,12 +70,12 @@ public class TestCommandClasses {
 
     // Act & Assert: IllegalArgumentException is thrown
     assertThrows(
-        IllegalArgumentException.class,
-        new Executable() {
-          public void execute() {
-            cmd.execute();
-          }
-        });
+            IllegalArgumentException.class,
+            new Executable() {
+              public void execute() {
+                cmd.execute();
+              }
+            });
   }
 
   @Test
@@ -84,12 +84,14 @@ public class TestCommandClasses {
     int slideToGo = 2;
     GoToCommand cmd = new GoToCommand(mockPresentation, slideToGo);
 
+    // Control behavior of mock object
+    when(mockPresentation.getSlideNumber()).thenReturn(1);
+
     // Act
     cmd.execute();
 
     // Assert
-    Mockito.verify(mockPresentation).setSlideNumber(slideToGo - 1);
+    verify(mockPresentation).setSlideNumber(slideToGo - 1);
   }
-
   // Tests for ExitCommand might be tricky due to System.exit() call. Skipping the example for that.
 }
