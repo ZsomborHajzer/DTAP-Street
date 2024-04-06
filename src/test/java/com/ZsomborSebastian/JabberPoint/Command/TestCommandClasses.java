@@ -81,7 +81,7 @@ public class TestCommandClasses {
             cmd.execute();
           }
         });
-  }
+  }}
 
 //  @Test
 //  public void testGoToCommand() {
