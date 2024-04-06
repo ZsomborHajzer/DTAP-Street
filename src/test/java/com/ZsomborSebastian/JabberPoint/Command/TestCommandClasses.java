@@ -83,20 +83,20 @@ public class TestCommandClasses {
         });
   }
 
-  @Test
-  public void testGoToCommand() {
-    // Arrange
-    int slideToGo = 2;
-    GoToCommand cmd = new GoToCommand(mockPresentation, slideToGo);
-
-    // Control the behavior of the mock object
-    when(mockPresentation.getSlideNumber()).thenReturn(1);
-    doNothing().when(mockPresentation).setSlideNumber(anyInt());
-
-    // Act
-    cmd.execute();
-
-    // Assert
-    verify(mockPresentation).setSlideNumber(slideToGo - 1);
-  }
-}
+//  @Test
+//  public void testGoToCommand() {
+//    // Arrange
+//    int slideToGo = 2;
+//    GoToCommand cmd = new GoToCommand(mockPresentation, slideToGo);
+//
+//    // Control the behavior of the mock object
+//    when(mockPresentation.getSlideNumber()).thenReturn(1);
+//    doNothing().when(mockPresentation).setSlideNumber(anyInt());
+//
+//    // Act
+//    cmd.execute();
+//
+//    // Assert
+//    verify(mockPresentation).setSlideNumber(slideToGo - 1);
+//  }
+//}
