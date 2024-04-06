@@ -1,5 +1,8 @@
 package com.ZsomborSebastian.JabberPoint;
 
+import com.ZsomborSebastian.JabberPoint.Accessor.XMLAccessor;
+import com.ZsomborSebastian.JabberPoint.Accessor.XMLAccessorAdapter;
+import com.ZsomborSebastian.JabberPoint.Presentation.DemoPresentation;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 import com.ZsomborSebastian.JabberPoint.Presentation.Slide;
 import com.ZsomborSebastian.JabberPoint.Presentation.SlideBuilder;
@@ -43,6 +46,13 @@ public class JabberPoint
         new SlideViewerFrame("test", presentation);
 
 
+
+
+        XMLAccessor xmlAccessor = new XMLAccessor();
+
+        XMLAccessorAdapter adapter = new XMLAccessorAdapter();
+
+        DemoPresentation demoPresentation = new DemoPresentation(adapter);
     }
 }
 

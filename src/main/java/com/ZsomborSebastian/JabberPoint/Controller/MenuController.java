@@ -72,7 +72,13 @@ public class MenuController extends MenuBar {
               }
             }));
     fileMenu.add(createMenuItem(NEW, e -> clearPresentation()));
-    fileMenu.add(createMenuItem(SAVE, e -> saveFile()));
+    fileMenu.add(createMenuItem(SAVE, e -> {
+        try {
+            saveFile();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }));
     fileMenu.addSeparator();
     fileMenu.add(createMenuItem(EXIT, e -> exit()));
     add(fileMenu);
@@ -100,7 +106,7 @@ public class MenuController extends MenuBar {
     ClearFileCommand.execute();
   }
 
-  public void saveFile() {
+  public void saveFile() throws IOException {
     SaveFileCommand.execute();
   }
 

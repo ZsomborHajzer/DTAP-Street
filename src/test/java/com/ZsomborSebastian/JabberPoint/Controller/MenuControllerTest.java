@@ -56,7 +56,7 @@ class MenuControllerTest {
   }
 
   @Test
-  void testSaveFile() {
+  void testSaveFile() throws IOException {
     // Assuming SaveCommand in MenuController is not null
     menuController.saveFile();
 

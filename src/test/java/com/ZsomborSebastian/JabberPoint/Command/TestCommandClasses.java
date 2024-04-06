@@ -10,6 +10,8 @@ import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
@@ -30,7 +32,7 @@ public class TestCommandClasses {
   }
 
   @Test
-  public void testSaveCommand() {
+  public void testSaveCommand() throws IOException {
     // Arrange
     XMLAccessor mockXMLAccessor = mock(XMLAccessor.class);
     SaveCommand cmd = new SaveCommand(mockPresentation, "test.xml");
@@ -40,7 +42,7 @@ public class TestCommandClasses {
   }
 
   @Test
-  public void testLoadCommand() {
+  public void testLoadCommand() throws IOException {
     // Arrange
     XMLAccessor mockXMLAccessor = mock(XMLAccessor.class);
     LoadCommand cmd = new LoadCommand(mockPresentation, "test.xml");
