@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestCommandClasses {
 
   Presentation mockPresentation;
@@ -84,8 +86,9 @@ public class TestCommandClasses {
     int slideToGo = 2;
     GoToCommand cmd = new GoToCommand(mockPresentation, slideToGo);
 
-    // Control behavior of mock object
+    // Control the behavior of the mock object
     when(mockPresentation.getSlideNumber()).thenReturn(1);
+    doNothing().when(mockPresentation).setSlideNumber(anyInt()); // add this line
 
     // Act
     cmd.execute();
