@@ -2,14 +2,14 @@ name: Test and Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "Development", "Testing", "Controller" ]
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches: [ "Development", "Testing" ]
+
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v3

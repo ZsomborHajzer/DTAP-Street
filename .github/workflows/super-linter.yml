@@ -1,0 +1,24 @@
+# This workflow executes several linters on changed files based on languages used in your code base whenever
+# you push a code or open a pull request.
+
+name: Lint Code Base
+
+on:
+  push:
+    branches: [ "Development", "Testing", "Presentation" ]
+  pull_request:
+    branches: [ "Development", "Testing" ]
+
+
+jobs:
+  run-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Run checkstyle linter through the codebase
+        run: mvn checkstyle:check
+
