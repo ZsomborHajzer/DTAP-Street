@@ -7,19 +7,22 @@ import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 import java.awt.*;
 import java.io.IOException;
 
-public abstract class AbstractCommand implements Command {
+public abstract class AbstractCommand implements Command
+{
 
-  protected Presentation presentation;
+    protected Presentation presentation;
 
-  protected static final String IOEX = "IO Exception: ";
-  protected static final String LOADERR = "Load Error";
-  protected static final String SAVEERR = "Save Error";
+    protected static final String IOEX = "IO Exception: ";
+    protected static final String LOADERR = "Load Error";
+    protected static final String SAVEERR = "Save Error";
 
-  public AbstractCommand(Presentation presentation) {
-    this.presentation = presentation;
-  }
+    public AbstractCommand(Presentation presentation)
+    {
+        this.presentation = presentation;
+    }
 
-  public void execute() throws IOException {
-  }
+    public void execute() throws IOException
+    {
+    }
 
 }
