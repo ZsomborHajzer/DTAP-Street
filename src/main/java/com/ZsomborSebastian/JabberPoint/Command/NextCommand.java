@@ -14,7 +14,10 @@ public class NextCommand extends AbstractCommand
     @Override
     public void execute()
     {
-        presentation.nextSlide();
-        ;
+        if (presentation.getSlideNumber() + 1 < presentation.getNumberOfSlides())
+        {
+            System.out.println(presentation.getSlideNumber());
+            presentation.nextSlide();
+        }
     }
 }

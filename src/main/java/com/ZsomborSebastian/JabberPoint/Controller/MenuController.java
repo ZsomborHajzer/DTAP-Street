@@ -4,9 +4,11 @@ import com.ZsomborSebastian.JabberPoint.Accessor.XMLAccessor;
 import com.ZsomborSebastian.JabberPoint.Command.*;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.MenuItem;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
 public class MenuController extends MenuBar
@@ -46,12 +48,13 @@ public class MenuController extends MenuBar
     {
         parent = frame;
         presentation = pres;
-        int slideToGo = 0;
+//        int slideToGo = 0;
         this.exitProgramCommand = exitProgramCommand;
         this.goToSlideCommand = goToSlideCommand;
         this.clearFileCommand = clearFileCommand;
         this.saveFileCommand = saveFileCommand;
         this.loadFileCommand = loadFileCommand;
+        this.xmlAccessor = new XMLAccessor();
         initMenu();
     }
 
@@ -65,10 +68,7 @@ public class MenuController extends MenuBar
     public void addFileMenu()
     {
         Menu fileMenu = new Menu(FILE);
-        fileMenu.add(
-                createMenuItem(
-                        OPEN,
-                        e ->
+        fileMenu.add(createMenuItem(OPEN, e ->
                         {
                             try
                             {
@@ -81,10 +81,20 @@ public class MenuController extends MenuBar
                         }
                         ));
         fileMenu.add(createMenuItem(NEW, e -> clearPresentation()));
-        fileMenu.add(createMenuItem(SAVE, e -> saveFile()));
+        fileMenu.add(createMenuItem(SAVE, e ->
+        {
+            try
+            {
+                saveFile();
+            }
+            catch (IOException ex)
+            {
+                throw new RuntimeException(ex);
+            }
+        }
+        ));
         fileMenu.addSeparator();
-        fileMenu.add(createMenuItem(EXIT, e -> exit()));
-        add(fileMenu);
+        fileMenu.add(createMenuItem(EXIT, e -> exit())); add(fileMenu);
     }
 
     public void addViewMenu()
@@ -103,28 +113,78 @@ public class MenuController extends MenuBar
         setHelpMenu(helpMenu);
     }
 
-    public void openFile() throws IOException
-    {
-        loadFileCommand.execute();
-    }
-
     public void clearPresentation()
     {
         clearFileCommand.execute();
     }
 
-    public void saveFile()
+    protected File getSaveFile()
     {
-        saveFileCommand.execute();
+        JFileChooser fileChooser = new JFileChooser();
+        int returnVal = fileChooser.showSaveDialog(parent);
+        if (returnVal == JFileChooser.APPROVE_OPTION)
+        {
+            return fileChooser.getSelectedFile();
+        }
+        return null;
+    }
+
+    protected File getOpenFile()
+    {
+        JFileChooser fileChooser = new JFileChooser();
+        int returnVal = fileChooser.showOpenDialog(parent);
+        if (returnVal == JFileChooser.APPROVE_OPTION)
+        {
+            return fileChooser.getSelectedFile();
+        }
+        return null;
+    }
+
+    public void saveFile() throws IOException
+    {
+        File file = getSaveFile();
+        if (file != null)
+        {
+            saveFileCommand.setFile(file);
+            saveFileCommand.execute();
+        }
+    }
+
+    public void openFile() throws IOException
+    {
+        File file = getOpenFile();
+        if (file != null)
+        {
+            loadFileCommand.setFile(file);
+            loadFileCommand.execute();
+        }
     }
 
     public void goToPage()
     {
-        goToSlideCommand.execute();
+        JTextField slideNumberInput = new JTextField();
+        final JComponent[] inputs = new JComponent[]
+        {
+            new JLabel("Enter slide number:"),
+            slideNumberInput
+        };
+        int result = JOptionPane.showConfirmDialog(null, inputs, "Go to a specific slide", JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION && !slideNumberInput.getText().trim().isEmpty())
+        {
+            int slideNumber = Integer.parseInt(slideNumberInput.getText());
+            goToSlideCommand.setSlideToGo(slideNumber - 1);  // decrement slideNumber, slides are 0-indexed
+            goToSlideCommand.execute();
+        }
+        else
+        {
+            goToSlideCommand.setSlideToGo(1);  // Set the default slide number to 1
+            goToSlideCommand.execute();  // Execute the command
+        }
     }
 
     public void exit()
     {
+        exitProgramCommand.execute();
     }
 
     public MenuItem createMenuItem(String name, ActionListener listener)

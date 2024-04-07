@@ -10,8 +10,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 
-class GoToCommandTest
-{
+class GoToCommandTest {
     Presentation mockPresentation;
 
     @BeforeEach
@@ -23,20 +22,20 @@ class GoToCommandTest
     public void teardown() {
         mockPresentation = null;
     }
+
     @Test
-    void execute()
-    {
+    void execute() {
         int slideToGo = 2;
         GoToCommand cmd = new GoToCommand(mockPresentation, slideToGo);
 
         // Control the behavior of the mock object
         when(mockPresentation.getSlideNumber()).thenReturn(1);
-        doNothing().when(mockPresentation).setSlideNumber(anyInt()); // add this line
+        doNothing().when(mockPresentation).changeSlide(anyInt()); // modify this line
 
         // Act
         cmd.execute();
 
         // Assert
-        verify(mockPresentation).setSlideNumber(slideToGo - 1);
+        verify(mockPresentation).changeSlide(slideToGo); // and this line
     }
 }
