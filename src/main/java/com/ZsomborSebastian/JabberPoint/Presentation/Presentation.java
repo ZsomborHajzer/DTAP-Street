@@ -1,18 +1,26 @@
 package com.ZsomborSebastian.JabberPoint.Presentation;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
 import com.ZsomborSebastian.JabberPoint.SlideViewer.SlideViewerComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Root(name = "presentation")
 public class Presentation
 {
 
-    private final List<PresentationObserver> presentationObservers;
+    private transient final List<PresentationObserver> presentationObservers;
+    @Element(name = "presentationTitle", required = false)
     private String presentationTitle;
+    @ElementList(name = "slides", required = false)
     private ArrayList<Slide> slides = null;
+    @Element(name = "currentSlideNumber", required = false)
     private int currentSlideNumber = 0;
-    private SlideViewerComponent slideViewComponent;
+    private transient SlideViewerComponent slideViewComponent;
     private int currentSlideIndex;
 
     public Presentation()

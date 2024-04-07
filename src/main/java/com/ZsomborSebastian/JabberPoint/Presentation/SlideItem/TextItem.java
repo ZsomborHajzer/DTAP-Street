@@ -18,7 +18,6 @@ import java.util.List;
 public class TextItem extends SlideItem
 {
     private String inputText;
-    private AttributedString attributedString;
 
     public TextItem(String inputText, Style style)
     {
