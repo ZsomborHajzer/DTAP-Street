@@ -1,22 +1,29 @@
 package com.ZsomborSebastian.JabberPoint.Accessor;
 
 import com.ZsomborSebastian.JabberPoint.Presentation.DemoPresentation;
+import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
 import java.io.IOException;
 
-public class XMLAccessorAdapter {
+public class XMLAccessorAdapter
+{
 
   private XMLAccessor xmlAccessor;
+  private Presentation presentation;
 
-  public XMLAccessorAdapter() {
+  public XMLAccessorAdapter() throws Exception
+  {
     this.xmlAccessor = new XMLAccessor();
+    this.presentation = new DemoPresentation(this);
   }
 
-  public void loadFile(DemoPresentation p, String fn) throws IOException {
-    xmlAccessor.loadFile(p, fn);
+  public Presentation loadFile(String filename) throws Exception
+  {
+    return xmlAccessor.loadFile(filename);
   }
 
-  public void saveFile(DemoPresentation p, String fn) throws IOException {
-    xmlAccessor.saveFile(p, fn);
+  public void saveFile(String filename) throws Exception
+  {
+    xmlAccessor.saveFile(presentation, filename);
   }
 }

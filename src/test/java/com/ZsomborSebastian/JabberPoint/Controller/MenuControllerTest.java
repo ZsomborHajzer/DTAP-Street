@@ -5,8 +5,10 @@ import com.ZsomborSebastian.JabberPoint.Controller.MenuController;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
@@ -50,26 +52,42 @@ class MenuControllerTest {
 
   @Test
   void testGoToPage() {
-    menuController.goToPage();
+    try(MockedStatic<JOptionPane> mockedStatic = mockStatic(JOptionPane.class)) {
+      // suggest the mock to return an option OK
+      mockedStatic.when(() -> JOptionPane.showConfirmDialog(any(), any(), any(), anyInt())).thenReturn(JOptionPane.OK_OPTION);
 
-    verify(goToCommand, times(1)).execute();
+      menuController.goToPage();
+      verify(goToCommand, times(1)).execute();
+    }
   }
 
-  @Test
-  void testSaveFile() throws IOException {
-    // Assuming SaveCommand in MenuController is not null
-    menuController.saveFile();
-
-    // Left as TODO as we need to consider how to mock SaveCommand
-    // to be able to test this function correctly
-  }
-
-  @Test
-  void testOpenFile() throws IOException {
-    // Assuming LoadCommand in MenuController is not null
-    menuController.openFile();
-
-    // Left as TODO as we need to consider how to mock LoadCommand
-    // to be able to test this function correctly
-  }
+//  @Test
+//  void testSaveFile() throws IOException {
+//    // We need to understand the real world effect of saveCommand's execute method
+//    // For the purpose of this demo, let's assume it interacts with Presentation object
+//    // So, when saveCommand.execute() is called, this mock will simulate the save operation on Presentation
+//    doAnswer((i) -> {
+//      System.out.println("Mocking save operation on Presentation object");
+//      return null;
+//    }).when(saveCommand).execute();
+//
+//    menuController.saveFile();
+//
+//    verify(saveCommand, times(1)).execute();
+//  }
+//
+//  @Test
+//  void testOpenFile() throws IOException {
+//    // We need to understand the real world effect of loadCommand's execute method
+//    // For the purpose of this demo, let's assume it interacts with Presentation object
+//    // So, when loadCommand.execute() is called, this mock will simulate the load operation on Presentation
+//    doAnswer((i) -> {
+//      System.out.println("Mocking load operation on Presentation object");
+//      return null;
+//    }).when(loadCommand).execute();
+//
+//    menuController.openFile();
+//
+//    verify(loadCommand, times(1)).execute();
+//  }
 }

@@ -2,13 +2,16 @@ package com.ZsomborSebastian.JabberPoint.Accessor;
 
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public abstract class Accessor {
+public abstract class Accessor
+{
 
   // Load a presentation file
-  public abstract void loadFile(Presentation p, String fn) throws IOException;
+
+  public abstract Presentation loadFile(String filename) throws FileNotFoundException;
 
   // Save a presentation file
-  public abstract void saveFile(Presentation p, String fn) throws IOException;
+  public abstract void saveFile(Presentation presentation, String fileName) throws IOException;
 }

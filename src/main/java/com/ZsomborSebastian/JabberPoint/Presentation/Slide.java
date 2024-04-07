@@ -4,16 +4,23 @@ import com.ZsomborSebastian.JabberPoint.Presentation.SlideItem.SlideItem;
 import com.ZsomborSebastian.JabberPoint.Presentation.SlideItem.TextItem;
 import com.ZsomborSebastian.JabberPoint.Styles.RedTitleStyle;
 import com.ZsomborSebastian.JabberPoint.Styles.Style;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Transient;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Vector;
 
+@Root(name = "slide")
 public class Slide
 {
     public final static int WIDTH = 1200;
     public final static int HEIGHT = 800;
+    @Element(name = "slideTitle", required = false)
     private String slideTitle; // title is saved separately
+    @ElementList(name = "items", required = false)
     private Vector<SlideItem> items; // slide items are saved in a Vector
 
 

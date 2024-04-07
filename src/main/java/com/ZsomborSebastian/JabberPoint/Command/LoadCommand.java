@@ -3,24 +3,37 @@ package com.ZsomborSebastian.JabberPoint.Command;
 import com.ZsomborSebastian.JabberPoint.Accessor.XMLAccessor;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 
+import java.io.File;
 import java.io.IOException;
 
 public class LoadCommand extends AbstractCommand
 {
 
-    private String fileName;
+    private File file;
+    private XMLAccessor xmlAccessor;  // This should be initialized appropriately
 
-    public LoadCommand(Presentation presentation, String fileName)
+    public LoadCommand(Presentation presentation, XMLAccessor xmlAccessor)
     {
         super(presentation);
-        this.presentation = presentation;
-        this.fileName = fileName;
+        this.xmlAccessor = xmlAccessor;
+    }
+
+    // Add a setter for file if using one
+    public void setFile(File file)
+    {
+        this.file = file;
     }
 
     @Override
-    public void execute() throws IOException {
-        // Just create it when you need it.
-        XMLAccessor xmlAccessor = new XMLAccessor();
-        xmlAccessor.loadFile(presentation, fileName);
+    public void execute() throws IOException
+    {
+        if (file != null)
+        {
+            xmlAccessor.loadFile(file.getAbsolutePath());
+        }
+        else
+        {
+            throw new IOException("File is null");
+        }
     }
 }

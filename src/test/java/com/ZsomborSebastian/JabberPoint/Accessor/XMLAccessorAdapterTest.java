@@ -1,6 +1,7 @@
 package com.ZsomborSebastian.JabberPoint.Accessor;
 
 import com.ZsomborSebastian.JabberPoint.Presentation.DemoPresentation;
+import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
 import java.io.File;
@@ -10,24 +11,36 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class XMLAccessorAdapterTest {
 
-    private DemoPresentation presentation;
     private XMLAccessorAdapter xmlAccessor;
+    private Presentation testPresentation;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         this.xmlAccessor = new XMLAccessorAdapter();
-        this.presentation = new DemoPresentation(this.xmlAccessor);
+
     }
 
     @Test
     void testLoadFile() {
-        Executable executable = () -> xmlAccessor.loadFile(presentation, "testfile.xml");
-        assertDoesNotThrow(executable, "Load file should not throw an exception for valid file");
+        Executable executable = () -> xmlAccessor.loadFile("testfile.xml");
+
+        try {
+            assertDoesNotThrow(executable, "Load file should not throw an exception for valid file");
+        } catch (Throwable t) {
+            t.printStackTrace(System.out);
+            throw t;
+        }
     }
 
     @Test
     void testSaveFile() {
-        Executable executable = () -> xmlAccessor.saveFile(presentation, "testfile.xml");
-        assertDoesNotThrow(executable, "Save file should not throw an exception");
+        Executable executable = () -> xmlAccessor.saveFile("testfile.xml");
+
+        try {
+            assertDoesNotThrow(executable, "Save file should not throw an exception");
+        } catch (Throwable t) {
+            t.printStackTrace(System.out);
+            throw t;
+        }
     }
 }

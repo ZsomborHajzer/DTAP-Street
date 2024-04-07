@@ -9,25 +9,31 @@ import com.ZsomborSebastian.JabberPoint.Styles.Style;
 
 import java.io.IOException;
 
-public class DemoPresentation extends Presentation {
+public class DemoPresentation extends Presentation
+{
 
   private XMLAccessorAdapter xmlAccessorAdapter;
 
-  public DemoPresentation(XMLAccessorAdapter xmlAccessorAdapter) {
+  public DemoPresentation(XMLAccessorAdapter xmlAccessorAdapter)
+  {
     this.setPresentationTitle("Demo Presentation");
     this.xmlAccessorAdapter = xmlAccessorAdapter;
     createSlides();
   }
 
-  public void loadFile(Presentation presentation, String unsusedFilename) throws IOException {
-    xmlAccessorAdapter.loadFile(this, unsusedFilename);
+  public void loadFile(String filename) throws Exception
+  {
+    xmlAccessorAdapter.loadFile(filename);
   }
 
-  public void saveFile(Presentation presentation, String unsusedFilename) throws IOException {
-    xmlAccessorAdapter.saveFile(this, unsusedFilename);
+  public void saveFile(String filename) throws Exception
+  {
+    xmlAccessorAdapter.saveFile(filename);
   }
 
-  private void createSlides() {
+
+  private void createSlides()
+  {
     Slide slide;
     SlideItem slideItem;
     Style style;
