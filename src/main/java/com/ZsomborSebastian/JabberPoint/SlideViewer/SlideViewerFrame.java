@@ -19,11 +19,11 @@ public class SlideViewerFrame extends JFrame
         super(title);
         SlideViewerComponent slideViewerComponent = new SlideViewerComponent(presentation, this);
         presentation.setSlideViewerComponent(slideViewerComponent);
-        setupWindow(slideViewerComponent, presentation);
+        setupWindow(slideViewerComponent);
     }
 
     // Setup GUI
-    public void setupWindow(SlideViewerComponent slideViewerComponent, Presentation presentation)
+    public void setupWindow(SlideViewerComponent slideViewerComponent)
     {
         setTitle(JABTITLE);
         addWindowListener(new WindowAdapter()
