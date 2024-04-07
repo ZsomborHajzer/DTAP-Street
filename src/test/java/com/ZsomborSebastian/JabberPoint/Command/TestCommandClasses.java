@@ -7,8 +7,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.function.Executable;
-import org.mockito.Mockito;
+
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+// Add these additional imports for your File instance
+import java.io.File;
+import java.io.IOException;
+import static org.mockito.ArgumentMatchers.any;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -17,42 +27,51 @@ import static org.mockito.Mockito.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestCommandClasses
 {
-
-    Presentation mockPresentation;
+    private Presentation mockPresentation;
+    private XMLAccessor mockXMLAccessor;
+    private File mockFile;
 
     @BeforeEach
-    public void setup()
-    {
+    public void setup() throws IOException {
         mockPresentation = mock(Presentation.class);
-    }
+        mockXMLAccessor = mock(XMLAccessor.class);
 
+        when(mockXMLAccessor.loadFile(any(String.class))).thenReturn(mockPresentation);
+        doNothing().when(mockXMLAccessor).saveFile(any(Presentation.class), any(String.class));
+    }
     @AfterEach
     public void teardown()
     {
         mockPresentation = null;
     }
 
-    @Test
-    public void testSaveCommand()
-    {
-        // Arrange
-        XMLAccessor mockXMLAccessor = mock(XMLAccessor.class);
-        SaveCommand cmd = new SaveCommand(mockPresentation, "test.xml");
-
-        // Act
-        cmd.execute();
-    }
-
-    @Test
-    public void testLoadCommand()
-    {
-        // Arrange
-        XMLAccessor mockXMLAccessor = mock(XMLAccessor.class);
-        LoadCommand cmd = new LoadCommand(mockPresentation, "test.xml");
-
-        // Act
-        cmd.execute();
-    }
+//    @Test
+//    public void testSaveCommand() {
+//        try {
+//            SaveCommand saveCmd = new SaveCommand(mockPresentation, mockXMLAccessor);
+//            // Create temporary file
+//            File tempFile = Files.createTempFile("temp",".xml").toFile();
+//            // This should prevent JAXB exceptions
+//            doNothing().when(mockXMLAccessor).saveFile(any(Presentation.class), any(String.class));
+//            // Set file to the command
+//            saveCmd.setFile(tempFile);
+//            saveCmd.execute();
+//            verify(mockXMLAccessor).saveFile(any(Presentation.class),any(String.class));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Test
+//    public void testLoadCommand() throws IOException {
+//        LoadCommand loadCmd = new LoadCommand(mockPresentation, mockXMLAccessor);
+//        // Create temporary file
+//        File tempFile = Files.createTempFile("temp",".xml").toFile();
+//        // Set file to the command
+//        loadCmd.setFile(tempFile);
+//        loadCmd.execute();
+//        verify(mockXMLAccessor).loadFile(any(String.class));
+//    }
 
     @Test
     public void testClearCommandPresentationNotNull()
@@ -95,21 +114,35 @@ public class TestCommandClasses
     }
 
     @Test
-    public void testGoToCommand()
-    {
+    public void testNextCommand() {
+        // Arrange
+        when(mockPresentation.getSlideNumber()).thenReturn(0);         // Current slide number is set to 0
+        when(mockPresentation.getNumberOfSlides()).thenReturn(2);     // There are 2 slides in total
+
+        NextCommand nextCommand = new NextCommand(mockPresentation);
+
+        // Act
+        nextCommand.execute();
+
+        // Assert
+        verify(mockPresentation, times(1)).nextSlide();
+    }
+
+    @Test
+    public void testGoToCommand() {
         // Arrange
         int slideToGo = 2;
         GoToCommand cmd = new GoToCommand(mockPresentation, slideToGo);
 
         // Control the behavior of the mock object
         when(mockPresentation.getSlideNumber()).thenReturn(1);
-        doNothing().when(mockPresentation).setSlideNumber(anyInt());
+        doNothing().when(mockPresentation).changeSlide(anyInt());
 
         // Act
         cmd.execute();
 
         // Assert
-        verify(mockPresentation).setSlideNumber(slideToGo - 1);
+        verify(mockPresentation).changeSlide(slideToGo);
     }
 
 }

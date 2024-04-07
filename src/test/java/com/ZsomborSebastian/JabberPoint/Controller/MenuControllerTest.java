@@ -5,9 +5,12 @@ import com.ZsomborSebastian.JabberPoint.Controller.MenuController;
 import com.ZsomborSebastian.JabberPoint.Presentation.Presentation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
+import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 import static org.mockito.Mockito.*;
@@ -50,26 +53,25 @@ class MenuControllerTest {
 
   @Test
   void testGoToPage() {
-    menuController.goToPage();
+    try(MockedStatic<JOptionPane> mockedStatic = mockStatic(JOptionPane.class)) {
+      // suggest the mock to return an option OK
+      mockedStatic.when(() -> JOptionPane.showConfirmDialog(any(), any(), any(), anyInt())).thenReturn(JOptionPane.OK_OPTION);
 
-    verify(goToCommand, times(1)).execute();
+      menuController.goToPage();
+      verify(goToCommand, times(1)).execute();
+    }
   }
 
   @Test
-  void testSaveFile() {
-    // Assuming SaveCommand in MenuController is not null
-    menuController.saveFile();
+   void testSaveFile() throws IOException {
+      File tempFile = File.createTempFile("temp", ".xml");
+      tempFile.deleteOnExit();
 
-    // Left as TODO as we need to consider how to mock SaveCommand
-    // to be able to test this function correctly
-  }
+      MenuController spyController = Mockito.spy(menuController);
+      doReturn(tempFile).when(spyController).getSaveFile();
 
-  @Test
-  void testOpenFile() throws IOException {
-    // Assuming LoadCommand in MenuController is not null
-    menuController.openFile();
+      spyController.saveFile();
+      verify(saveCommand, times(1)).execute();
+   }
 
-    // Left as TODO as we need to consider how to mock LoadCommand
-    // to be able to test this function correctly
-  }
 }

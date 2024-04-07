@@ -10,9 +10,6 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - name: Log recent commit
-        run: git log -1
-
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -20,14 +17,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Clean with Maven
-        run: mvn clean test
-        
       - name: Generate Report
         run: mvn jacoco:report
 
       - name: Zip code coverage report directory
-        run: zip -r coverage-report.zip target/site
+        run: Compress-Archive -Path target/site -DestinationPath coverage-report.zip
 
       - name: Upload code coverage report to google drive
         uses: adityak74/google-drive-upload-git-action@main

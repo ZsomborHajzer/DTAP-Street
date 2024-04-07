@@ -15,6 +15,6 @@ public class ExitCommand extends AbstractCommand implements Command
     @Override
     public void execute()
     {
-        presentation.exitProgram(0);
+        System.exit(0);
     }
 }

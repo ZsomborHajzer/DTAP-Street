@@ -13,16 +13,14 @@ public class GoToCommand extends AbstractCommand
         this.slideToGo = slideToGo;
     }
 
+    public void setSlideToGo(int slideToGo)
+    {
+        this.slideToGo = slideToGo;
+    }
+
     @Override
     public void execute()
     {
-        if (slideToGo > 0)
-        {
-            presentation.setSlideNumber(slideToGo - 1);
-        }
-        else
-        {
-            throw new IllegalArgumentException("Invalid slide number");
-        }
+        presentation.changeSlide(slideToGo);
     }
 }
