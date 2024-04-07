@@ -5,9 +5,11 @@ name: Lint Code Base
 
 on:
   push:
-    branches: [ "Development", "Testing", "Presentation" ]
+    branches: [ "Development", "Testing" ]
   pull_request:
     branches: [ "Development", "Testing" ]
+  workflow_dispatch:
+
 
 
 jobs:

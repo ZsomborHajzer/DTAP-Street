@@ -73,5 +73,4 @@ class MenuControllerTest {
       spyController.saveFile();
       verify(saveCommand, times(1)).execute();
    }
-
 }
