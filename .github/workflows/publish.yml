@@ -1,8 +1,10 @@
 # .github/workflows/main.yml
 name: Publish JAR file
 on:
-  workflow_dispatch:
-
+  push:
+    branches: [ "main", "Development" ]
+  pull_request:
+    branches: [ "main" ]
 jobs:
   my_job:
     runs-on: ubuntu-latest
@@ -18,16 +20,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Package the maven project
-        run: mvn -B package --file pom.xml
-
       - name: Create executable Jar File
         run: mvn clean compile assembly:single
 
-      - name: Run the created file
-        run: java -jar target/JabberPoint-1.0-SNAPSHOT-jar-with-dependencies.jar
-
-      - name: Upload to gdrive
+      - name: Upload java executable to google drive
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.credentials }}
@@ -35,3 +31,4 @@ jobs:
           folderId: ${{ secrets.folderId }}
           name: "Java.jar" # optional string
           overwrite: "true" # optional boolean
+

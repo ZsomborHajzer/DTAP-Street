@@ -1,7 +1,5 @@
 name: Publish code coverage
 on:
-  push:
-    branches: ["Presentation"]
   workflow_dispatch:
 
 jobs:
@@ -23,7 +21,10 @@ jobs:
           cache: maven
 
       - name: Clean with Maven
-        run: mvn clean verify
+        run: mvn clean test
+        
+      - name: Generate Report
+        run: mvn jacoco:report
 
       - name: Zip code coverage report directory
         run: zip -r coverage-report.zip target/site
