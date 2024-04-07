@@ -113,32 +113,50 @@ public class MenuController extends MenuBar
         setHelpMenu(helpMenu);
     }
 
-    public void openFile() throws IOException
-    {
-        JFileChooser fileChooser = new JFileChooser();
-        int returnVal = fileChooser.showOpenDialog(parent);
-        if (returnVal == JFileChooser.APPROVE_OPTION)
-        {
-            File file = fileChooser.getSelectedFile();
-            loadFileCommand.setFile(file);
-            loadFileCommand.execute();
-        }
-    }
-
     public void clearPresentation()
     {
         clearFileCommand.execute();
     }
 
-    public void saveFile() throws IOException
+    protected File getSaveFile()
     {
         JFileChooser fileChooser = new JFileChooser();
         int returnVal = fileChooser.showSaveDialog(parent);
         if (returnVal == JFileChooser.APPROVE_OPTION)
         {
-            File file = fileChooser.getSelectedFile();
+            return fileChooser.getSelectedFile();
+        }
+        return null;
+    }
+
+    protected File getOpenFile()
+    {
+        JFileChooser fileChooser = new JFileChooser();
+        int returnVal = fileChooser.showOpenDialog(parent);
+        if (returnVal == JFileChooser.APPROVE_OPTION)
+        {
+            return fileChooser.getSelectedFile();
+        }
+        return null;
+    }
+
+    public void saveFile() throws IOException
+    {
+        File file = getSaveFile();
+        if (file != null)
+        {
             saveFileCommand.setFile(file);
             saveFileCommand.execute();
+        }
+    }
+
+    public void openFile() throws IOException
+    {
+        File file = getOpenFile();
+        if (file != null)
+        {
+            loadFileCommand.setFile(file);
+            loadFileCommand.execute();
         }
     }
 

@@ -24,6 +24,11 @@ public class SaveCommand extends AbstractCommand
         this.file = file;
     }
 
+    public void setXmlAccessor(XMLAccessor xmlAccessor)
+    {
+        this.xmlAccessor = xmlAccessor;
+    }
+
   @Override
   public void execute() throws IOException
   {

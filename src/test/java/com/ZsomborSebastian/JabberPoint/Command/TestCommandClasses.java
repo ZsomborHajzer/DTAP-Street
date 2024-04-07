@@ -114,6 +114,21 @@ public class TestCommandClasses
     }
 
     @Test
+    public void testNextCommand() {
+        // Arrange
+        when(mockPresentation.getSlideNumber()).thenReturn(0);         // Current slide number is set to 0
+        when(mockPresentation.getNumberOfSlides()).thenReturn(2);     // There are 2 slides in total
+
+        NextCommand nextCommand = new NextCommand(mockPresentation);
+
+        // Act
+        nextCommand.execute();
+
+        // Assert
+        verify(mockPresentation, times(1)).nextSlide();
+    }
+
+    @Test
     public void testGoToCommand() {
         // Arrange
         int slideToGo = 2;

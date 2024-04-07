@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 import static org.mockito.Mockito.*;
@@ -61,33 +62,16 @@ class MenuControllerTest {
     }
   }
 
-//  @Test
-//  void testSaveFile() throws IOException {
-//    // We need to understand the real world effect of saveCommand's execute method
-//    // For the purpose of this demo, let's assume it interacts with Presentation object
-//    // So, when saveCommand.execute() is called, this mock will simulate the save operation on Presentation
-//    doAnswer((i) -> {
-//      System.out.println("Mocking save operation on Presentation object");
-//      return null;
-//    }).when(saveCommand).execute();
-//
-//    menuController.saveFile();
-//
-//    verify(saveCommand, times(1)).execute();
-//  }
-//
-//  @Test
-//  void testOpenFile() throws IOException {
-//    // We need to understand the real world effect of loadCommand's execute method
-//    // For the purpose of this demo, let's assume it interacts with Presentation object
-//    // So, when loadCommand.execute() is called, this mock will simulate the load operation on Presentation
-//    doAnswer((i) -> {
-//      System.out.println("Mocking load operation on Presentation object");
-//      return null;
-//    }).when(loadCommand).execute();
-//
-//    menuController.openFile();
-//
-//    verify(loadCommand, times(1)).execute();
-//  }
+  @Test
+   void testSaveFile() throws IOException {
+      File tempFile = File.createTempFile("temp", ".xml");
+      tempFile.deleteOnExit();
+
+      MenuController spyController = Mockito.spy(menuController);
+      doReturn(tempFile).when(spyController).getSaveFile();
+
+      spyController.saveFile();
+      verify(saveCommand, times(1)).execute();
+   }
+
 }
