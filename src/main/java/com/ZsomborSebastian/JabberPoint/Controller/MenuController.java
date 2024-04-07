@@ -30,7 +30,7 @@ public class MenuController extends MenuBar
     protected static final String GOTO = "Go to";
     protected static final String HELP = "Help";
     protected static final String NEW = "New";
-    protected static final String NEXT = "Next";
+    protected static final String FORWARD = "Forward";
     protected static final String OPEN = "Open";
     protected static final String PREV = "Prev";
     protected static final String SAVE = "Save";
@@ -100,7 +100,7 @@ public class MenuController extends MenuBar
     public void addViewMenu()
     {
         Menu viewMenu = new Menu(VIEW);
-        viewMenu.add(createMenuItem(NEXT, e -> presentation.nextSlide()));
+        viewMenu.add(createMenuItem(FORWARD, e -> presentation.nextSlide()));
         viewMenu.add(createMenuItem(PREV, e -> presentation.previousSlide()));
         viewMenu.add(createMenuItem(GOTO, e -> goToPage()));
         add(viewMenu);
