@@ -69,17 +69,17 @@ public class MenuController extends MenuBar
     {
         Menu fileMenu = new Menu(FILE);
         fileMenu.add(createMenuItem(OPEN, e ->
-                        {
-                            try
-                            {
-                                openFile();
-                            }
-                            catch (IOException ex)
-                            {
-                                throw new RuntimeException(ex);
-                            }
-                        }
-                        ));
+        {
+            try
+            {
+                openFile();
+            }
+            catch (IOException ex)
+            {
+                throw new RuntimeException(ex);
+            }
+        }
+        ));
         fileMenu.add(createMenuItem(NEW, e -> clearPresentation()));
         fileMenu.add(createMenuItem(SAVE, e ->
         {

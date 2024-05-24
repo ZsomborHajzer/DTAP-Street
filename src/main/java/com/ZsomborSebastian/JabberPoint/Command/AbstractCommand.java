@@ -21,8 +21,6 @@ public abstract class AbstractCommand implements Command
         this.presentation = presentation;
     }
 
-    public void execute() throws IOException
-    {
-    }
+    public abstract void execute() throws IOException;
 
 }
